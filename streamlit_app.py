@@ -1,4 +1,7 @@
 ### IMPORT LIBRARIES
+from pydrive.drive import GoogleDrive
+from pydrive.auth import GoogleAuth
+import os
 import streamlit as st
 import pandas as pd
 from gsheetsdb import connect
@@ -885,7 +888,16 @@ def yazdir():
 
     # TO DO !
     dosya_adi = str(ogrenci[2].values[0]) + ".docx"
-    st.download_button(dosya_adi+' indir', document)
+    document.save(dosya_adi)
+    gauth = GoogleAuth()
+    gauth.LocalWebserverAuth()       
+    drive = GoogleDrive(gauth)
+    path="/"+dosya_adi
+    for x in os.listdir(path):
+        f = drive.CreateFile({'title': x})
+        f.SetContentFile(os.path.join(path, x))
+        f.Upload()
+        f = None
     # files.download(dosya_adi)
     # st.download_button('Analizi indir:', doc_to_down)
 
