@@ -1,4 +1,5 @@
 altair
 pandas
 streamlit
+typing-extensions
 python-docx
