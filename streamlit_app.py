@@ -1,6 +1,5 @@
 ### IMPORT LIBRARIES
 import streamlit as st
-from gsheetsdb import connect
 import pandas as pd
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
@@ -885,9 +884,7 @@ def yazdir():
 
     # TO DO !
     dosya_adi = str(ogrenci[2].values[0]) + ".docx"
-    document.save("file.docx")
-    # if st.button("İndir!"):
-    st.components.v1.iframe('<form method="get" action="/Users/skaraderili/PycharmProjects/kisilik_envanteri/file.docx"><button type = "submit">Download! </button></form> ')
+    st.download_button(dosya_adi+' indir', document)
     # files.download(dosya_adi)
     # st.download_button('Analizi indir:', doc_to_down)
 
