@@ -1,6 +1,7 @@
 ### IMPORT LIBRARIES
 import streamlit as st
 import pandas as pd
+from gsheetsdb import connect
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 import random as rd
