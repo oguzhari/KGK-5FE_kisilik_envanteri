@@ -3,4 +3,5 @@ pandas
 streamlit
 typing-extensions
 gsheetsdb
+pydrive
 python-docx
