@@ -1,7 +1,8 @@
-altair
+smtplib
+os
+mimetypes
+email
 pandas
-streamlit
-typing-extensions
-gsheetsdb
-pydrive
 python-docx
+gsheetsdb
+random

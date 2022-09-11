@@ -1,42 +1,39 @@
-### IMPORT LIBRARIES
-from pydrive.drive import GoogleDrive
-from pydrive.auth import GoogleAuth
-import os
 import streamlit as st
-import pandas as pd
 from gsheetsdb import connect
+import random as rd
+import os
+import smtplib
+import mimetypes
+from email import encoders
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+import pandas as pd
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.shared import Inches
+import pandas as p
 import random as rd
-import streamlit.components.v1 as components
 
-
-
-
-# CREATE SHHET CONNECTION
-# Create a connection object.
 conn = connect()
 
 
-# Perform SQL query on the Google Sheet.
-# Uses st.cache to only rerun when the query changes or after 10 min.
-@st.cache(ttl=600)
 def run_query(query):
     rows = conn.execute(query, headers=1)
     rows = rows.fetchall()
     return rows
 
 
-
-### READ AND CONVERT DATA
-sheet_url = st.secrets["public_gsheets_url"]
-rows = run_query(f'SELECT * FROM "{sheet_url}"')
-
-row_list = list(range(0, 62 + 1))
-tumveriler = pd.DataFrame(rows, columns=row_list)
+def get_sheet():
+    sheet_url = st.secrets["public_gsheets_url"]
+    rows = run_query(f'SELECT * FROM "{sheet_url}"')
+    return rows
 
 
-def tanımla_analiz_et():
+def tanımla_analiz_et(ogrenci_numarasi):
+    tumveriler = get_sheet()
+    tumveriler = pd.DataFrame(tumveriler)
+    ogrenci = tumveriler.loc[tumveriler[8] == ogrenci_numarasi]
     envanter_analiz = ""
     arada_kalanlar = []
     envanter_degerlendirme_1_0 = ["Sosyal ortamlarda kaygı yaşayabilir.",
@@ -721,8 +718,166 @@ def tanımla_analiz_et():
     return envanter_analiz, arada_kalanlar
 
 
+def yazdir(ogrenci):
+    cevaplar = (
+        ("1 --> " + str(ogrenci[19].values[0]), "12 --> " + str(ogrenci[30].values[0]),
+         "23 --> " + str(ogrenci[41].values[0]), "34 --> " + str(ogrenci[52].values[0])),
+        ("2 --> " + str(ogrenci[20].values[0]), "13 --> " + str(ogrenci[31].values[0]),
+         "24 --> " + str(ogrenci[42].values[0]), "35 --> " + str(ogrenci[53].values[0])),
+        ("3 --> " + str(ogrenci[21].values[0]), "14 --> " + str(ogrenci[32].values[0]),
+         "25 --> " + str(ogrenci[43].values[0]), "36 --> " + str(ogrenci[54].values[0])),
+        ("4 --> " + str(ogrenci[22].values[0]), "15 --> " + str(ogrenci[33].values[0]),
+         "26 --> " + str(ogrenci[44].values[0]), "37 --> " + str(ogrenci[55].values[0])),
+        ("5 --> " + str(ogrenci[23].values[0]), "16 --> " + str(ogrenci[34].values[0]),
+         "27 --> " + str(ogrenci[45].values[0]), "38 --> " + str(ogrenci[56].values[0])),
+        ("6 --> " + str(ogrenci[24].values[0]), "17 --> " + str(ogrenci[35].values[0]),
+         "28 --> " + str(ogrenci[46].values[0]), "39 --> " + str(ogrenci[57].values[0])),
+        ("7 --> " + str(ogrenci[25].values[0]), "18 --> " + str(ogrenci[36].values[0]),
+         "29 --> " + str(ogrenci[47].values[0]), "40 --> " + str(ogrenci[58].values[0])),
+        ("8 --> " + str(ogrenci[26].values[0]), "19 --> " + str(ogrenci[37].values[0]),
+         "30 --> " + str(ogrenci[48].values[0]), "41 --> " + str(ogrenci[59].values[0])),
+        ("9 --> " + str(ogrenci[27].values[0]), "20 --> " + str(ogrenci[38].values[0]),
+         "31 --> " + str(ogrenci[49].values[0]), "42 --> " + str(ogrenci[60].values[0])),
+        ("10 --> " + str(ogrenci[28].values[0]), "21 --> " + str(ogrenci[39].values[0]),
+         "32 --> " + str(ogrenci[50].values[0]), "43 --> " + str(ogrenci[61].values[0])),
+        ("11 --> " + str(ogrenci[29].values[0]), "22 --> " + str(ogrenci[40].values[0]),
+         "33 --> " + str(ogrenci[51].values[0]), "44 --> " + str(ogrenci[62].values[0]))
+    )
 
-def yazdir():
+    ogr_no = str(ogrenci[2].values[0])
+    boyut_a = (int(ogrenci[19].values[0]) + (11 - (int(ogrenci[24].values[0]))) + int(ogrenci[29].values[0]) + int(
+        ogrenci[34].values[0]) + (11 - int(ogrenci[39].values[0])) + int(ogrenci[44].values[0]) + (
+                           11 - int(ogrenci[49].values[0])) + int(ogrenci[54].values[0])) / 8
+    boyut_b = ((11 - int(ogrenci[20].values[0])) + int(ogrenci[25].values[0]) + (11 - int(ogrenci[30].values[0])) + int(
+        ogrenci[35].values[0]) + int(ogrenci[40].values[0]) + (11 - int(ogrenci[45].values[0])) + int(
+        ogrenci[50].values[0]) + (11 - int(ogrenci[55].values[0])) + int(ogrenci[60].values[0])) / 9
+    boyut_c = (int(ogrenci[21].values[0]) + int(ogrenci[31].values[0]) + int(ogrenci[46].values[0]) + int(
+        ogrenci[51].values[0]) + int(ogrenci[56].values[0]) + (11 - int(ogrenci[26].values[0])) + (
+                           11 - int(ogrenci[36].values[0])) + (11 - int(ogrenci[41].values[0])) + (
+                           11 - int(ogrenci[61].values[0]))) / 9
+    boyut_d = (int(ogrenci[22].values[0]) + int(ogrenci[32].values[0]) + int(ogrenci[37].values[0]) + int(
+        ogrenci[47].values[0]) + int(ogrenci[57].values[0]) + (11 - int(ogrenci[27].values[0])) + (
+                           11 - int(ogrenci[41].values[0])) + (11 - int(ogrenci[52].values[0]))) / 8
+    boyut_e = (int(ogrenci[23].values[0]) + int(ogrenci[28].values[0]) + int(ogrenci[33].values[0]) + int(
+        ogrenci[38].values[0]) + int(ogrenci[43].values[0]) + int(ogrenci[48].values[0]) + int(
+        ogrenci[58].values[0]) + int(ogrenci[62].values[0]) + (11 - int(ogrenci[53].values[0])) + (
+                           11 - int(ogrenci[59].values[0]))) / 10
+    a = '{0:.2f}'.format(boyut_a)
+    b = '{0:.2f}'.format(boyut_b)
+    c = '{0:.2f}'.format(boyut_c)
+    d = '{0:.2f}'.format(boyut_d)
+    e = '{0:.2f}'.format(boyut_e)
+
+    document = Document()
+
+    section = document.sections[0]
+    footer = section.footer
+    paragraph = footer.paragraphs[0]
+    paragraph.text = "\tSakarya Üniversitesi Kariyer ve Yetenek Yönetimi Koordinatörlüğü"
+    paragraph.style = document.styles["Header"]
+
+    document.add_heading(str(ogrenci[2].values[0]), 0)
+
+    p = document.add_paragraph()
+    p.add_run('Envanter Doldurulma Tarihi: ').bold = True
+    p.add_run(str(ogrenci[0].values[0])).italic = True
+
+    p = document.add_paragraph()
+    p.add_run('Mail adresi: ').bold = True
+    p.add_run(str(ogrenci[1].values[0])).italic = True
+
+    p = document.add_paragraph()
+    p.add_run('Cinsiyeti: ').bold = True
+    p.add_run(str(ogrenci[5].values[0])).italic = True
+
+    p = document.add_paragraph()
+    p.add_run('Yaşı: ').bold = True
+    p.add_run(str(ogrenci[6].values[0])).italic = True
+
+    p = document.add_paragraph()
+    p.add_run('Bölüme giriş sırası: ').bold = True
+    p.add_run(str(ogrenci[9].values[0])).italic = True
+
+    p = document.add_paragraph()
+    p.add_run('Bölümü sınava kaçıncı girişinde kazandı: ').bold = True
+    p.add_run(str(ogrenci[10].values[0])).italic = True
+
+    p = document.add_paragraph()
+    p.add_run('Bölüm kaçıncı tercihiydi: ').bold = True
+    p.add_run(str(ogrenci[11].values[0])).italic = True
+
+    p = document.add_paragraph()
+    p.add_run('Bölümü neden tercih etti: ').bold = True
+    p.add_run(str(ogrenci[12].values[0])).italic = True
+
+    p = document.add_paragraph()
+    p.add_run('Kariyer Kavramı sizin için ne ifade etmektedir: ').bold = True
+    p.add_run("1-" + str(ogrenci[13].values[0])).italic = True
+    p.add_run(" 2-" + str(ogrenci[14].values[0])).italic = True
+    p.add_run(" 3-" + str(ogrenci[15].values[0])).italic = True
+
+    p = document.add_paragraph()
+    p.add_run('Çalışmak istediği işte aradığı temel özellik: ').bold = True
+    p.add_run(str(ogrenci[16].values[0])).italic = True
+
+    p = document.add_paragraph()
+    p.add_run('Faktörler: ').bold = True
+    p.add_run(str(ogrenci[17].values[0])).italic = True
+
+    p = document.add_paragraph()
+    p.add_run('Kariyer yapılması planlanan sektör: ').bold = True
+    p.add_run(str(ogrenci[18].values[0])).italic = True
+
+    p = document.add_paragraph()
+    analiz, arada_kalanlar = tanımla_analiz_et(ogrenci[8])
+    p.add_run('Envanter Analizi').bold = True
+    paragraph = document.add_paragraph()
+    paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    paragraph.add_run(analiz).italic = True
+
+    p = document.add_paragraph()
+    p.add_run('Verilen Cevaplar').bold = True
+    table = document.add_table(rows=1, cols=4)
+    table.allow_autofit = True
+    hdr_cells = table.rows[0].cells
+    hdr_cells[0].text = 'Soru No --> Cevap'
+    hdr_cells[1].text = 'Soru No --> Cevap'
+    hdr_cells[2].text = 'Soru No --> Cevap'
+    hdr_cells[3].text = 'Soru No --> Cevap'
+    for bir, iki, uc, dort in cevaplar:
+        row = table.add_row().cells
+        row[0].text = bir
+        row[1].text = iki
+        row[2].text = uc
+        row[3].text = dort
+    table.style = 'Light Shading Accent 4'
+
+    p = document.add_paragraph()
+    p = document.add_paragraph()
+    p.add_run('Boyut Analizi').bold = True
+    table = document.add_table(rows=1, cols=6)
+    table.allow_autofit = True
+    hdr_cells = table.rows[0].cells
+    hdr_cells[0].text = 'Öğrenci Adı'
+    hdr_cells[1].text = 'Dışa Dönüklük'
+    hdr_cells[2].text = 'Yumuşak Başlılık'
+    hdr_cells[3].text = 'Özdenetim'
+    hdr_cells[4].text = 'Duygusal Tutarlılık'
+    hdr_cells[5].text = 'Gelişime Açıklık'
+    row = table.add_row().cells
+    row[0].text = str(ogr_no)
+    row[1].text = a + "/10"
+    row[2].text = b + "/10"
+    row[3].text = c + "/10"
+    row[4].text = d + "/10"
+    row[5].text = e + "/10"
+    table.style = 'Light Shading Accent 4'
+
+    dosya_adi = str(ogrenci[2].values[0]) + ".docx"
+    document.save(dosya_adi)
+
+
+def yazdir_analiz(ogrenci):
     cevaplar = (
         ("1 --> " + str(ogrenci[19].values[0]), "12 --> " + str(ogrenci[30].values[0]),
          "23 --> " + str(ogrenci[41].values[0]), "34 --> " + str(ogrenci[52].values[0])),
@@ -886,52 +1041,85 @@ def yazdir():
     row[5].text = e + "/10"
     table.style = 'Light Shading Accent 4'
 
-    # TO DO !
-    dosya_adi = str(ogrenci[2].values[0]) + ".docx"
+    dosya_adi = str(ogrenci[2].values[0]).rstrip() + " Analiz.docx"
     document.save(dosya_adi)
-    gauth = GoogleAuth()
-    gauth.LocalWebserverAuth()       
-    drive = GoogleDrive(gauth)
-    path="/"+dosya_adi
-    for x in os.listdir(path):
-        f = drive.CreateFile({'title': x})
-        f.SetContentFile(os.path.join(path, x))
-        f.Upload()
-        f = None
-    # files.download(dosya_adi)
-    # st.download_button('Analizi indir:', doc_to_down)
 
 
-### APP
-
-ogrenci_numarasi = st.text_input("Öğrenci numarası giriniz:")
-
-
-analiz = st.button("Analiz Et!")
-
-if analiz:
-
-    ogrenci = tumveriler.loc[tumveriler[8] == ogrenci_numarasi]
-
-    # st.title(str(ogrenci[8].values[0]))
-
-    try:
-        str(ogrenci[8].values[0]) != ogrenci_numarasi
-    except IndexError:
-        st.write("Öğrenci Numarasını bulunamadı, kontrol edip, programı tekrar çalıştırın ve öğrenci numarasını girin!")
+def mime_init(from_addr, recipients_addr, subject, body):
+    """
+    :param str from_addr:           The email address you want to send mail from
+    :param list recipients_addr:    The list of email addresses of recipients
+    :param str subject:             Mail subject
+    :param str body:                Mail body
+    :return:                        MIMEMultipart object
+    """
+    msg = MIMEMultipart()
+    msg['From'] = from_addr
+    msg['To'] = ','.join(recipients_addr)
+    msg['Subject'] = subject
+    msg.attach(MIMEText(body, 'plain'))
+    return msg
 
 
-    st.write("Öğrenci bulundu. Analiz ediliyor.")
-    try:
-        tanımla_analiz_et()
-    except Exception as e:
-        st.write("Tanım ve analiz kısmında bir hata oluştu --> " + str(e))
+def send_email(user, password, from_addr, recipients_addr, subject, body, files_path=None, server='smtp.gmail.com'):
+    """
+    :param str user:                Sender's email userID
+    :param str password:            sender's email password
+    :param str from_addr:           The email address you want to send mail from
+    :param list recipients_addr:    List of (or space separated string) email addresses of recipients
+    :param str subject:             Mail subject
+    :param str body:                Mail body
+    :param list files_path:         List of paths of files you want to attach
+    :param str server:              SMTP server (port is choosen 587)
+    :return:                        None
+    """
+
+    #   assert isinstance(recipents_addr, list)
+    FROM = from_addr
+    TO = recipients_addr if isinstance(recipients_addr, list) else recipients_addr.split(' ')
+    PASS = password
+    SERVER = server
+    SUBJECT = subject
+    BODY = body
+    msg = mime_init(FROM, TO, SUBJECT, BODY)
+
+    for file_path in files_path or []:
+        with open(file_path, "rb") as fp:
+            part = MIMEBase('application', "octet-stream")
+            part.set_payload((fp).read())
+            # Encoding payload is necessary if encoded (compressed) file has to be attached.
+            encoders.encode_base64(part)
+            part.add_header('content-disposition', 'attachment', filename='%s' % file_path)
+            msg.attach(part)
+
+    if SERVER == 'localhost':  # send mail from local server
+        # Start local SMTP server
+        server = smtplib.SMTP(SERVER)
+        text = msg.as_string()
+        server.send_message(msg)
+    else:
+        # Start SMTP server at port 587
+        server = smtplib.SMTP(SERVER, 587)
+        server.starttls()
+        # Enter login credentials for the email you want to sent mail from
+        server.login(user, PASS)
+        text = msg.as_string()
+        # Send mail
+        server.sendmail(FROM, TO, text)
+
+    server.quit()
 
 
-    print("Analiz bitti. Yazdırılıyor...")
-    try:
-        yazdir()
-
-    except Exception as e:
-        st.write("Yazdırma sırasında bir hata oluştu --> " + str(e))
+def mail_gonder(ogr_adi, ogr_maili):
+    file_path = []
+    user = 'kariyer@sakarya.edu.tr'  # Email userID
+    password = 'saukariyer25'  # Email password
+    from_addr = 'kariyer@sakarya.edu.tr'
+    recipients_addr = ogr_maili
+    subject = '5FE Kişilik Envanteri Analizi'
+    body = "Sayın {}, Kariyer ve Yetenek Yönetimi Koordinatörlüğü'nde tamamlamış olduğunuz kişilik envanterinin analizi ektedir.".format(
+        ogr_adi)
+    file_path.append(ogr_adi + ".docx")
+    # print(recipients_addr,file_path)
+    send_email(user, password, from_addr, recipients_addr, subject, body, file_path)
 
