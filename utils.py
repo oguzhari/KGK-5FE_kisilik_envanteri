@@ -1132,6 +1132,6 @@ def mail_gonder_yetkili(ogr_adi):
     subject = '5FE Kişilik Envanteri Analizi - {}'.format(ogr_adi)
     body = "{} isimli öğrenciye ait kişilik envanterinin analizi ektedir.".format(
         ogr_adi)
-    file_path.append(ogr_adi + " Analiz.docx")
+    file_path.append(ogr_adi.rstrip() + " Analiz.docx")
     send_email(user, password, from_addr, recipients_addr, subject, body, file_path)
 
