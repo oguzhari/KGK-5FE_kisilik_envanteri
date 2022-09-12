@@ -6,3 +6,4 @@ pandas
 python-docx
 gsheetsdb
 random
+requests

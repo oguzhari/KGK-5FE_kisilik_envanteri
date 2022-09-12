@@ -1,6 +1,5 @@
 import streamlit as st
 from gsheetsdb import connect
-import random as rd
 import os
 import smtplib
 import requests as rs
@@ -9,7 +8,6 @@ from email import encoders
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
-import pandas as pd
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Inches
