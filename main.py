@@ -1,5 +1,4 @@
-import pandas as pd
-
+import streamlit as st
 from utils import *
 
 tumveriler = get_sheet()
