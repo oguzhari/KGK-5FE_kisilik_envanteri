@@ -3,6 +3,7 @@ from gsheetsdb import connect
 import random as rd
 import os
 import smtplib
+import requests as rs
 import mimetypes
 from email import encoders
 from email.mime.multipart import MIMEMultipart
@@ -12,7 +13,7 @@ import pandas as pd
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Inches
-import pandas as p
+import pandas as pd
 import random as rd
 
 conn = connect()
@@ -25,15 +26,15 @@ def run_query(query):
 
 
 def get_sheet():
-    sheet_url = st.secrets["public_gsheets_url"]
-    rows = run_query(f'SELECT * FROM "{sheet_url}"')
-    return rows
+    sheet_csv = st.secrets["public_sheet_csv"]
+    res = rs.get(url=sheet_csv)
+    open('google.csv', 'wb').write(res.content)
+    content = pd.read_csv('google.csv', header=None)
+    #rows = run_query(f'SELECT * FROM "{sheet_url}"')
+    return content
 
 
-def tanımla_analiz_et(ogrenci_numarasi):
-    tumveriler = get_sheet()
-    tumveriler = pd.DataFrame(tumveriler)
-    ogrenci = tumveriler.loc[tumveriler[8] == ogrenci_numarasi]
+def tanımla_analiz_et(ogrenci):
     envanter_analiz = ""
     arada_kalanlar = []
     envanter_degerlendirme_1_0 = ["Sosyal ortamlarda kaygı yaşayabilir.",
@@ -829,7 +830,7 @@ def yazdir(ogrenci):
     p.add_run(str(ogrenci[18].values[0])).italic = True
 
     p = document.add_paragraph()
-    analiz, arada_kalanlar = tanımla_analiz_et(ogrenci[8])
+    analiz, arada_kalanlar = tanımla_analiz_et(ogrenci)
     p.add_run('Envanter Analizi').bold = True
     paragraph = document.add_paragraph()
     paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
@@ -988,7 +989,7 @@ def yazdir_analiz(ogrenci):
     p.add_run(str(ogrenci[18].values[0])).italic = True
 
     p = document.add_paragraph()
-    analiz, arada_kalanlar = tanımla_analiz_et()
+    analiz, arada_kalanlar = tanımla_analiz_et(ogrenci)
     p.add_run('Envanter Analizi').bold = True
     paragraph = document.add_paragraph()
     paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
@@ -1121,5 +1122,18 @@ def mail_gonder(ogr_adi, ogr_maili):
         ogr_adi)
     file_path.append(ogr_adi + ".docx")
     # print(recipients_addr,file_path)
+    send_email(user, password, from_addr, recipients_addr, subject, body, file_path)
+
+
+def mail_gonder_yetkili(ogr_adi):
+    file_path = []
+    user = 'kariyer@sakarya.edu.tr'  # Email userID
+    password = 'saukariyer25'  # Email password
+    from_addr = 'kariyer@sakarya.edu.tr'
+    recipients_addr = "tugbademir@sakarya.edu.tr"
+    subject = '5FE Kişilik Envanteri Analizi - {}'.format(ogr_adi)
+    body = "{} isimli öğrenciye ait kişilik envanterinin analizi ektedir.".format(
+        ogr_adi)
+    file_path.append(ogr_adi + " Analiz.docx")
     send_email(user, password, from_addr, recipients_addr, subject, body, file_path)
 
