@@ -1,8 +1,4 @@
-os
-mimetypes
-email
 pandas
 python-docx
 gsheetsdb
-random
 requests
