@@ -1128,7 +1128,7 @@ def mail_gonder_yetkili(ogr_adi):
     user = 'kariyer@sakarya.edu.tr'  # Email userID
     password = 'saukariyer25'  # Email password
     from_addr = 'kariyer@sakarya.edu.tr'
-    recipients_addr = "tugbademir@sakarya.edu.tr"
+    recipients_addr = "kariyer@sakarya.edu.tr"
     subject = '5FE Kişilik Envanteri Analizi - {}'.format(ogr_adi)
     body = "{} isimli öğrenciye ait kişilik envanterinin analizi ektedir.".format(
         ogr_adi)

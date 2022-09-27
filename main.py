@@ -25,7 +25,7 @@ if st.button("Analiz Et"):
                 ogr_ad = str(ogrenci[2].values[0])
                 ogr_mail = str(ogrenci[1].values[0])
                 try:
-                    mail_gonder(ogr_ad, ogr_mail)
+                    # mail_gonder(ogr_ad, ogr_mail)
                     mail_gonder_yetkili(ogr_ad)
                 except Exception as e:
                     st.error("Mail Gönderimi kısmında hata oluştu --> " + str(e))
