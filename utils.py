@@ -1126,7 +1126,7 @@ def mail_gonder(ogr_adi, ogr_maili):
 def mail_gonder_yetkili(ogr_adi):
     file_path = []
     user = 'kariyer@sakarya.edu.tr'  # Email userID
-    password = 'saukariyer25'  # Email password
+    password = st.secrets['kariyer_sifre']  # Email password
     from_addr = 'kariyer@sakarya.edu.tr'
     recipients_addr = "kariyer@sakarya.edu.tr"
     subject = '5FE Kişilik Envanteri Analizi - {}'.format(ogr_adi)
