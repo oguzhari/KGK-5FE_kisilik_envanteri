@@ -1112,7 +1112,7 @@ def send_email(user, password, from_addr, recipients_addr, subject, body, files_
 def mail_gonder(ogr_adi, ogr_maili):
     file_path = []
     user = 'kariyer@sakarya.edu.tr'  # Email userID
-    password = 'saukariyer25'  # Email password
+    password = st.secrets['kariyer_sifre']  # Email password
     from_addr = 'kariyer@sakarya.edu.tr'
     recipients_addr = ogr_maili
     subject = '5FE Kişilik Envanteri Analizi'
@@ -1134,4 +1134,28 @@ def mail_gonder_yetkili(ogr_adi):
         ogr_adi)
     file_path.append(ogr_adi.rstrip() + " Analiz.docx")
     send_email(user, password, from_addr, recipients_addr, subject, body, file_path)
+
+
+def head():
+    st.markdown("""
+        <h1 style='text-align: center'>
+        5FE Kişilik Envanteri Analizi
+        </h1>
+    """, unsafe_allow_html=True
+                )
+
+    st.caption("""
+        <p style='text-align: center;'>
+        Sakarya Üniversitesi Kariyer ve Yetenek Yönetimi Koordinatörlüğü
+        </p>
+    """, unsafe_allow_html=True
+               )
+
+def versiyon():
+    st.caption("""
+                <p style='text-align: center;'>
+                ver 1.0.2
+                </p>
+            """, unsafe_allow_html=True
+               )
 
