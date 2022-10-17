@@ -4,7 +4,7 @@ head()
 tumveriler = get_sheet()
 ogrenci_numarasi = st.text_input('Öğrenci Numarası', 'b161306350')  # @param {type:"string"}
 
-
+kopya = st.checkbox('Bir kopyasını öğrenciye gönder.')
 if st.button("Analiz Et"):
     my_bar = st.progress(0)
     ogrenci = tumveriler.loc[tumveriler[8] == ogrenci_numarasi]
@@ -24,13 +24,13 @@ if st.button("Analiz Et"):
                     mail_gonder_yetkili(ogr_ad)
                     try:
                         st.success("Tamamlandı!")
-                        # mail_gonder(ogr_ad, ogr_mail)
+                        if kopya:
+                            mail_gonder(ogr_ad, ogr_mail)
                         # st.info("Öğrenciye mail gönderildi!")
                     except Exception as e:
                         st.error("Öğrenciye Mail Gönderilemedi. Hata: {}".format(e))
                 except Exception as e:
                     st.error("Mail Gönderimi kısmında hata oluştu. Hata: {}".format(e))
-
                 my_bar.progress(100)
             except Exception as e:
                 st.error("Yazdırma sırasında bir hata oluştu. Hata: {}".format(e))
