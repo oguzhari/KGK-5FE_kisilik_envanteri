@@ -2,3 +2,4 @@ pandas
 python-docx
 gsheetsdb
 requests
+pyparsing
