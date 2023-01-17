@@ -18,7 +18,7 @@ if st.button("Analiz Et"):
                 yazdir(ogrenci)
                 yazdir_analiz(ogrenci)
                 my_bar.progress(75)
-                ogr_ad = str(ogrenci[2].values[0])
+                ogr_ad = str(ogrenci[2].values[0]).title()
                 ogr_mail = str(ogrenci[1].values[0])
                 try:
                     mail_gonder_yetkili(ogr_ad)
