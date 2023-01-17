@@ -1154,7 +1154,7 @@ def head():
 def versiyon():
     st.caption("""
                 <p style='text-align: center;'>
-                ver 1.1.0
+                ver 1.1.1
                 </p>
             """, unsafe_allow_html=True
                )
