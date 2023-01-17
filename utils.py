@@ -743,7 +743,7 @@ def yazdir(ogrenci):
          "33 --> " + str(ogrenci[51].values[0]), "44 --> " + str(ogrenci[62].values[0]))
     )
 
-    ogr_no = str(ogrenci[2].values[0])
+    ogr_no = str(ogrenci[2].values[0]).title()
     boyut_a = (int(ogrenci[19].values[0]) + (11 - (int(ogrenci[24].values[0]))) + int(ogrenci[29].values[0]) + int(
         ogrenci[34].values[0]) + (11 - int(ogrenci[39].values[0])) + int(ogrenci[44].values[0]) + (
                            11 - int(ogrenci[49].values[0])) + int(ogrenci[54].values[0])) / 8
@@ -872,7 +872,7 @@ def yazdir(ogrenci):
     row[5].text = e + "/10"
     table.style = 'Light Shading Accent 4'
 
-    dosya_adi = str(ogrenci[2].values[0]) + ".docx"
+    dosya_adi = str(ogrenci[2].values[0]).title() + ".docx"
     document.save(dosya_adi)
 
 
@@ -902,7 +902,7 @@ def yazdir_analiz(ogrenci):
          "33 --> " + str(ogrenci[51].values[0]), "44 --> " + str(ogrenci[62].values[0]))
     )
 
-    ogr_no = str(ogrenci[2].values[0])
+    ogr_no = str(ogrenci[2].values[0]).title()
     boyut_a = (int(ogrenci[19].values[0]) + (11 - (int(ogrenci[24].values[0]))) + int(ogrenci[29].values[0]) + int(
         ogrenci[34].values[0]) + (11 - int(ogrenci[39].values[0])) + int(ogrenci[44].values[0]) + (
                            11 - int(ogrenci[49].values[0])) + int(ogrenci[54].values[0])) / 8
@@ -934,7 +934,7 @@ def yazdir_analiz(ogrenci):
     paragraph.text = "\tSakarya Üniversitesi Kariyer ve Yetenek Yönetimi Koordinatörlüğü"
     paragraph.style = document.styles["Header"]
 
-    document.add_heading(str(ogrenci[2].values[0]), 0)
+    document.add_heading(str(ogrenci[2].values[0]).title(), 0)
 
     p = document.add_paragraph()
     p.add_run('Envanter Doldurulma Tarihi: ').bold = True
@@ -1040,7 +1040,7 @@ def yazdir_analiz(ogrenci):
     row[5].text = e + "/10"
     table.style = 'Light Shading Accent 4'
 
-    dosya_adi = str(ogrenci[2].values[0]).rstrip() + " Analiz.docx"
+    dosya_adi = (str(ogrenci[2].values[0]).title()).rstrip() + " Analiz.docx"
     document.save(dosya_adi)
 
 
