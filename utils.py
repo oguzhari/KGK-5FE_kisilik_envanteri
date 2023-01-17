@@ -775,7 +775,7 @@ def yazdir(ogrenci):
     paragraph.text = "\tSakarya Üniversitesi Kariyer ve Yetenek Yönetimi Koordinatörlüğü"
     paragraph.style = document.styles["Header"]
 
-    document.add_heading(str(ogrenci[2].values[0]), 0)
+    document.add_heading(str(ogrenci[2].values[0]).title(), 0)
 
     p = document.add_paragraph()
     p.add_run('Envanter Doldurulma Tarihi: ').bold = True
