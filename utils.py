@@ -785,13 +785,12 @@ def ogrenci_analiz_olustur(ogrenci):
     p.add_run('Envanter Analizi').bold = True
     paragraph = document.add_paragraph()
     paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-    analiz_uzunlugu = int(len(analiz) * 0.4)
+    analiz_uzunlugu = int(len(analiz.split()) * 0.4)
     analiz = ' '.join(analiz.split()[:analiz_uzunlugu]) + "..."
     paragraph.add_run(analiz).italic = True
 
     p = document.add_paragraph()
     p.add_run('Detaylı analiz için lütfen kariyer@sakarya.edu.tr adresiyle iletişime geçin.').bold = True
-
 
     dosya_adi = str(ogrenci[2].values[0]).title() + ".docx"
     document.save(dosya_adi)
@@ -1072,10 +1071,11 @@ def head():
     """, unsafe_allow_html=True
                )
 
+
 def versiyon():
     st.caption("""
                 <p style='text-align: center;'>
-                ver 1.2.0<br/><font size="2">build 26062023.2222</font>
+                ver 1.3.0<br/><font size="2">build 23102023.0026</font>
                 </p>
             """, unsafe_allow_html=True
                )

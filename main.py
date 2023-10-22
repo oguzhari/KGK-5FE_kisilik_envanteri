@@ -9,7 +9,6 @@ if st.button("Analiz Et"):
     my_bar = st.progress(0)
     ogrenci = tumveriler.loc[tumveriler[8] == ogrenci_numarasi]
     try:
-        str(ogrenci[8].values[0]) != ogrenci_numarasi
         my_bar.progress(25)
         try:
             tanımla_analiz_et(ogrenci)
