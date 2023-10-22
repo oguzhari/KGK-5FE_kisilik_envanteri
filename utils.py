@@ -10,7 +10,6 @@ from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
-from docx.shared import Inches
 import pandas as pd
 import random as rd
 
@@ -717,7 +716,7 @@ def tanımla_analiz_et(ogrenci):
     return envanter_analiz, arada_kalanlar
 
 
-def yazdir(ogrenci):
+def ogrenci_analiz_olustur(ogrenci):
     cevaplar = (
         ("1 --> " + str(ogrenci[19].values[0]), "12 --> " + str(ogrenci[30].values[0]),
          "23 --> " + str(ogrenci[41].values[0]), "34 --> " + str(ogrenci[52].values[0])),
@@ -782,101 +781,23 @@ def yazdir(ogrenci):
     p.add_run(str(ogrenci[0].values[0])).italic = True
 
     p = document.add_paragraph()
-    p.add_run('Mail adresi: ').bold = True
-    p.add_run(str(ogrenci[1].values[0])).italic = True
-
-    p = document.add_paragraph()
-    p.add_run('Cinsiyeti: ').bold = True
-    p.add_run(str(ogrenci[5].values[0])).italic = True
-
-    p = document.add_paragraph()
-    p.add_run('Yaşı: ').bold = True
-    p.add_run(str(ogrenci[6].values[0])).italic = True
-
-    p = document.add_paragraph()
-    p.add_run('Bölüme giriş sırası: ').bold = True
-    p.add_run(str(ogrenci[9].values[0])).italic = True
-
-    p = document.add_paragraph()
-    p.add_run('Bölümü sınava kaçıncı girişinde kazandı: ').bold = True
-    p.add_run(str(ogrenci[10].values[0])).italic = True
-
-    p = document.add_paragraph()
-    p.add_run('Bölüm kaçıncı tercihiydi: ').bold = True
-    p.add_run(str(ogrenci[11].values[0])).italic = True
-
-    p = document.add_paragraph()
-    p.add_run('Bölümü neden tercih etti: ').bold = True
-    p.add_run(str(ogrenci[12].values[0])).italic = True
-
-    p = document.add_paragraph()
-    p.add_run('Kariyer Kavramı sizin için ne ifade etmektedir: ').bold = True
-    p.add_run("1-" + str(ogrenci[13].values[0])).italic = True
-    p.add_run(" 2-" + str(ogrenci[14].values[0])).italic = True
-    p.add_run(" 3-" + str(ogrenci[15].values[0])).italic = True
-
-    p = document.add_paragraph()
-    p.add_run('Çalışmak istediği işte aradığı temel özellik: ').bold = True
-    p.add_run(str(ogrenci[16].values[0])).italic = True
-
-    p = document.add_paragraph()
-    p.add_run('Faktörler: ').bold = True
-    p.add_run(str(ogrenci[17].values[0])).italic = True
-
-    p = document.add_paragraph()
-    p.add_run('Kariyer yapılması planlanan sektör: ').bold = True
-    p.add_run(str(ogrenci[18].values[0])).italic = True
-
-    p = document.add_paragraph()
     analiz, arada_kalanlar = tanımla_analiz_et(ogrenci)
     p.add_run('Envanter Analizi').bold = True
     paragraph = document.add_paragraph()
     paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    analiz_uzunlugu = int(len(analiz) * 0.4)
+    analiz = ' '.join(analiz.split()[:analiz_uzunlugu]) + "..."
     paragraph.add_run(analiz).italic = True
 
     p = document.add_paragraph()
-    p.add_run('Verilen Cevaplar').bold = True
-    table = document.add_table(rows=1, cols=4)
-    table.allow_autofit = True
-    hdr_cells = table.rows[0].cells
-    hdr_cells[0].text = 'Soru No --> Cevap'
-    hdr_cells[1].text = 'Soru No --> Cevap'
-    hdr_cells[2].text = 'Soru No --> Cevap'
-    hdr_cells[3].text = 'Soru No --> Cevap'
-    for bir, iki, uc, dort in cevaplar:
-        row = table.add_row().cells
-        row[0].text = bir
-        row[1].text = iki
-        row[2].text = uc
-        row[3].text = dort
-    table.style = 'Light Shading Accent 4'
+    p.add_run('Detaylı analiz için lütfen kariyer@sakarya.edu.tr adresiyle iletişime geçin.').bold = True
 
-    p = document.add_paragraph()
-    p = document.add_paragraph()
-    p.add_run('Boyut Analizi').bold = True
-    table = document.add_table(rows=1, cols=6)
-    table.allow_autofit = True
-    hdr_cells = table.rows[0].cells
-    hdr_cells[0].text = 'Öğrenci Adı'
-    hdr_cells[1].text = 'Dışa Dönüklük'
-    hdr_cells[2].text = 'Yumuşak Başlılık'
-    hdr_cells[3].text = 'Özdenetim'
-    hdr_cells[4].text = 'Duygusal Tutarlılık'
-    hdr_cells[5].text = 'Gelişime Açıklık'
-    row = table.add_row().cells
-    row[0].text = str(ogr_no)
-    row[1].text = a + "/10"
-    row[2].text = b + "/10"
-    row[3].text = c + "/10"
-    row[4].text = d + "/10"
-    row[5].text = e + "/10"
-    table.style = 'Light Shading Accent 4'
 
     dosya_adi = str(ogrenci[2].values[0]).title() + ".docx"
     document.save(dosya_adi)
 
 
-def yazdir_analiz(ogrenci):
+def danisman_analiz_olustur(ogrenci):
     cevaplar = (
         ("1 --> " + str(ogrenci[19].values[0]), "12 --> " + str(ogrenci[30].values[0]),
          "23 --> " + str(ogrenci[41].values[0]), "34 --> " + str(ogrenci[52].values[0])),

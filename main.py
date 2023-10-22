@@ -15,8 +15,8 @@ if st.button("Analiz Et"):
             tanımla_analiz_et(ogrenci)
             my_bar.progress(50)
             try:
-                yazdir(ogrenci)
-                yazdir_analiz(ogrenci)
+                danisman_analiz_olustur(ogrenci)
+                ogrenci_analiz_olustur(ogrenci)
                 my_bar.progress(75)
                 ogr_ad = str(ogrenci[2].values[0]).title()
                 ogr_mail = str(ogrenci[1].values[0])

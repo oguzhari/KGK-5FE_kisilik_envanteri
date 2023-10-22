@@ -3,3 +3,4 @@
 google.csv
 *.docx
 .idea/
+__pycache__/
