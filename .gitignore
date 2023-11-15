@@ -3,4 +3,6 @@
 google.csv
 *.docx
 .idea/
+.idea/5FE_kisilik_envanteri.iml
+.idea/misc.xml
 __pycache__/

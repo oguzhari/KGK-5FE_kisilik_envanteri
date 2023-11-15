@@ -771,7 +771,7 @@ def ogrenci_analiz_olustur(ogrenci):
     section = document.sections[0]
     footer = section.footer
     paragraph = footer.paragraphs[0]
-    paragraph.text = "\tSakarya Üniversitesi Kariyer ve Yetenek Yönetimi Koordinatörlüğü"
+    paragraph.text = "\tSakarya Üniversitesi Kariyer Geliştirme Koordinatörlüğü"
     paragraph.style = document.styles["Header"]
 
     document.add_heading(str(ogrenci[2].values[0]).title(), 0)
@@ -851,7 +851,7 @@ def danisman_analiz_olustur(ogrenci):
     section = document.sections[0]
     footer = section.footer
     paragraph = footer.paragraphs[0]
-    paragraph.text = "\tSakarya Üniversitesi Kariyer ve Yetenek Yönetimi Koordinatörlüğü"
+    paragraph.text = "\tSakarya Üniversitesi Kariyer Geliştirme Koordinatörlüğü"
     paragraph.style = document.styles["Header"]
 
     document.add_heading(str(ogrenci[2].values[0]).title(), 0)
@@ -1036,7 +1036,7 @@ def mail_gonder(ogr_adi, ogr_maili):
     from_addr = 'kariyer@sakarya.edu.tr'
     recipients_addr = ogr_maili
     subject = '5FE Kişilik Envanteri Analizi'
-    body = "Sayın {}, Kariyer ve Yetenek Yönetimi Koordinatörlüğü'nde tamamlamış olduğunuz kişilik envanterinin analizi ektedir.".format(
+    body = "Sayın {}, Kariyer Geliştirme Koordinatörlüğü'nde tamamlamış olduğunuz kişilik envanterinin analizi ektedir.".format(
         ogr_adi)
     file_path.append(ogr_adi + ".docx")
     # print(recipients_addr,file_path)
@@ -1066,7 +1066,7 @@ def head():
 
     st.caption("""
         <p style='text-align: center;'>
-        Sakarya Üniversitesi Kariyer ve Yetenek Yönetimi Koordinatörlüğü
+        Sakarya Üniversitesi Kariyer Geliştirme Koordinatörlüğü
         </p>
     """, unsafe_allow_html=True
                )
