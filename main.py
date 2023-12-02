@@ -2,7 +2,7 @@ import streamlit as st
 from utils import *
 head()
 tumveriler = get_sheet()
-ogrenci_numarasi = st.text_input('Öğrenci Numarası', 'b161306350')  # @param {type:"string"}
+ogrenci_numarasi = st.text_input('Öğrenci Numarası', 'b161306350', key='ogrenci_numarasi')  # @param {type:"string"}
 # https://myaccount.google.com/lesssecureapps
 kopya = st.checkbox('Bir kopyasını öğrenciye gönder.')
 if st.button("Analiz Et"):
