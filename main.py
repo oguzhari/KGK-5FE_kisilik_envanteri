@@ -5,6 +5,8 @@ tumveriler = get_sheet()
 ogrenci_numarasi = st.text_input('Öğrenci Numarası', 'b161306350', key='ogrenci_numarasi')  # @param {type:"string"}
 # https://myaccount.google.com/lesssecureapps
 kopya = st.checkbox('Bir kopyasını öğrenciye gönder.')
+fuar_modu = st.checkbox('Fuar Modu')
+st.info("Fuar modu seçildiğinde, öğrenciye tam analiz gönderilir ancak danışmana mail gönderilmez.")
 if st.button("Analiz Et"):
     my_bar = st.progress(0)
     ogrenci = tumveriler.loc[tumveriler[8] == ogrenci_numarasi]
@@ -20,14 +22,17 @@ if st.button("Analiz Et"):
                 ogr_ad = str(ogrenci[2].values[0]).title()
                 ogr_mail = str(ogrenci[1].values[0])
                 try:
-                    mail_gonder_yetkili(ogr_ad)
-                    try:
+                    if kopya:
+                        mail_gonder_yetkili(ogr_ad)
+                        mail_gonder(ogr_ad, ogr_mail)
                         st.success("Tamamlandı!")
-                        if kopya:
-                            mail_gonder(ogr_ad, ogr_mail)
-                        # st.info("Öğrenciye mail gönderildi!")
-                    except Exception as e:
-                        st.error("Öğrenciye Mail Gönderilemedi. Hata: {}".format(e))
+                    elif fuar_modu:
+                        mail_gonder_fuar(ogr_ad, ogr_mail)
+                        mail_gonder(ogr_ad, ogr_mail)
+                        st.success("Tamamlandı!")
+                    else:
+                        mail_gonder(ogr_ad, ogr_mail)
+                        st.success("Tamamlandı!")
                 except Exception as e:
                     if "Username and Password not" in str(e):
                         st.error('''

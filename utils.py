@@ -1056,6 +1056,19 @@ def mail_gonder_yetkili(ogr_adi):
     send_email(user, password, from_addr, recipients_addr, subject, body, file_path)
 
 
+def mail_gonder_fuar(ogr_adi, ogr_maili):
+    file_path = []
+    user = 'kariyer@sakarya.edu.tr'  # Email userID
+    password = st.secrets['kariyer_sifre']  # Email password
+    from_addr = 'kariyer@sakarya.edu.tr'
+    recipients_addr = ogr_maili
+    subject = '5FE Kişilik Envanteri Analizi - {}'.format(ogr_adi)
+    body = ("Doldurmuş olduğunuz envanter ektedir. Standımıza göstermiş olduğunuz için teşekkür ederiz.\n"
+            "\nSakarya Üniversitesi Kariyer Geliştirme Koordinatörlüğü")
+    file_path.append(ogr_adi.rstrip() + " Analiz.docx")
+    send_email(user, password, from_addr, recipients_addr, subject, body, file_path)
+
+
 def head():
     st.markdown("""
         <h1 style='text-align: center'>
