@@ -1060,7 +1060,7 @@ def mail_gonder_fuar(ogr_adi, ogr_maili):
     file_path = []
     user = 'kariyer@sakarya.edu.tr'  # Email userID
     password = st.secrets['kariyer_sifre']  # Email password
-    from_addr = 'kariyer@sakarya.edu.tr'
+    from_addr = 'Kariyer Geliştirme Koordinatörlüğü'
     recipients_addr = ogr_maili
     subject = '5FE Kişilik Envanteri Analizi - {}'.format(ogr_adi)
     body = ("Doldurmuş olduğunuz envanter ektedir. Standımıza göstermiş olduğunuz için teşekkür ederiz.\n"
@@ -1088,7 +1088,7 @@ def head():
 def versiyon():
     st.caption("""
                 <p style='text-align: center;'>
-                ver 1.4.0<br/><font size="2">build 27022024.1126</font>
+                ver 1.4.1<br/><font size="2">build 27022024.1143</font>
                 </p>
             """, unsafe_allow_html=True
                )

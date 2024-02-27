@@ -28,7 +28,6 @@ if st.button("Analiz Et"):
                         st.success("Tamamlandı!")
                     elif fuar_modu:
                         mail_gonder_fuar(ogr_ad, ogr_mail)
-                        mail_gonder(ogr_ad, ogr_mail)
                         st.success("Tamamlandı!")
                     else:
                         mail_gonder(ogr_ad, ogr_mail)
