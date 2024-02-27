@@ -1063,7 +1063,7 @@ def mail_gonder_fuar(ogr_adi, ogr_maili):
     from_addr = 'Kariyer Geliştirme Koordinatörlüğü'
     recipients_addr = ogr_maili
     subject = '5FE Kişilik Envanteri Analizi - {}'.format(ogr_adi)
-    body = ("Doldurmuş olduğunuz envanter ektedir. Standımıza göstermiş olduğunuz için teşekkür ederiz.\n"
+    body = ("Doldurmuş olduğunuz envanter ektedir. Standımıza göstermiş olduğunuz ilgi için teşekkür ederiz.\n"
             "\nSakarya Üniversitesi Kariyer Geliştirme Koordinatörlüğü")
     file_path.append(ogr_adi.rstrip() + " Analiz.docx")
     send_email(user, password, from_addr, recipients_addr, subject, body, file_path)
