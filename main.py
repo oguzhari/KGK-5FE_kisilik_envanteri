@@ -2,11 +2,12 @@ import streamlit as st
 from utils import *
 head()
 tumveriler = get_sheet()
-ogrenci_numarasi = st.text_input('Öğrenci Numarası', 'b161306350', key='ogrenci_numarasi')  # @param {type:"string"}
+ogrenci_numarasi = st.text_input('Danışanın Öğrenci Numarası', 'b161306350', key='ogrenci_numarasi')  # @param {type:"string"}
 # https://myaccount.google.com/lesssecureapps
-kopya = st.checkbox('Bir kopyasını öğrenciye gönder.')
+kopya = st.checkbox('Bir kopyasını danışana gönder.')
 fuar_modu = st.checkbox('Fuar Modu')
-st.info("Fuar modu seçildiğinde, öğrenciye tam analiz gönderilir ancak danışmana mail gönderilmez.")
+st.info("Bir kopyasını danışana gönder seçeneği seçildiğinde, danışanlara özel hazırlanmış özet bir versiyonu gönderir."
+        "Fuar modu seçildiğinde, öğrenciye tam analiz gönderilir ancak danışmana mail gönderilmez.")
 if st.button("Analiz Et"):
     my_bar = st.progress(0)
     ogrenci = tumveriler.loc[tumveriler[8] == ogrenci_numarasi]
