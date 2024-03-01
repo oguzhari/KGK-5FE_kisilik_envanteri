@@ -1078,9 +1078,9 @@ def head():
                 )
 
     st.markdown("""
-        <h3 style='text-align: center;'>
+        <h5 style='text-align: center;'>
         Sakarya Üniversitesi Kariyer Geliştirme Koordinatörlüğü
-        </h3>
+        </h5>
     """, unsafe_allow_html=True
                )
 
