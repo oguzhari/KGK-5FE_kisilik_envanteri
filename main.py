@@ -7,7 +7,7 @@ ogrenci_numarasi = st.text_input('Danışanın Öğrenci Numarası', 'b161306350
 st.caption("Envanteri dolduran son beş öğrenci")
 son_ogrenciler = pd.DataFrame({'Öğrenci Adı': tumveriler[2],
                                'Öğrenci Numarası': tumveriler[8]})
-st.dataframe(son_ogrenciler.tail(5), hide_index=True)
+st.dataframe(son_ogrenciler.tail(5), hide_index=True, width=500)
 kopya = st.checkbox('Bir kopyasını danışana gönder.')
 fuar_modu = st.checkbox('Fuar Modu')
 st.warning("Bir kopyasını danışana gönder seçeneği seçildiğinde, danışanlara özel hazırlanmış özet bir versiyonu gönderir."
