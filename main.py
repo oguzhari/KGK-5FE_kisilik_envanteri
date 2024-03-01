@@ -7,7 +7,7 @@ st.caption("Envanteri dolduran son beş öğrenci")
 son_ogrenciler = pd.DataFrame({'Envanter Doldurulma Tarihi': tumveriler[0],
                                'Öğrenci Adı': tumveriler[2],
                                'Öğrenci Numarası': tumveriler[8]})
-st.dataframe(son_ogrenciler.tail(5), hide_index=True, width=500)
+st.dataframe(son_ogrenciler.tail(5), hide_index=True, width=700)
 ogrenci_numarasi = st.text_input('Danışanın Öğrenci Numarası', 'b161306350', key='ogrenci_numarasi')
 kopya = st.checkbox('Bir kopyasını danışana gönder.')
 fuar_modu = st.checkbox('Fuar Modu')
