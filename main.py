@@ -5,7 +5,7 @@ tumveriler = get_sheet()
 ogrenci_numarasi = st.text_input('Danışanın Öğrenci Numarası', 'b161306350', key='ogrenci_numarasi')  # @param {type:"string"}
 # https://myaccount.google.com/lesssecureapps
 st.caption("Envanteri dolduran son beş öğrenci")
-son_ogrenciler = pd.DataFrame(tumveriler.tail(5), columns=['Öğrenci Adı', 'Öğrenci Numarası'])
+son_ogrenciler = pd.DataFrame(tumveriler[[2, 8]].tail(5), columns=['Öğrenci Adı', 'Öğrenci Numarası'])
 st.dataframe(son_ogrenciler, hide_index=True)
 kopya = st.checkbox('Bir kopyasını danışana gönder.')
 fuar_modu = st.checkbox('Fuar Modu')
