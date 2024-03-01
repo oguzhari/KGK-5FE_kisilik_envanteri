@@ -1077,10 +1077,10 @@ def head():
     """, unsafe_allow_html=True
                 )
 
-    st.caption("""
-        <p style='text-align: center;'>
+    st.markdown("""
+        <h3 style='text-align: center;'>
         Sakarya Üniversitesi Kariyer Geliştirme Koordinatörlüğü
-        </p>
+        </h3>
     """, unsafe_allow_html=True
                )
 
@@ -1088,7 +1088,7 @@ def head():
 def versiyon():
     st.caption("""
                 <p style='text-align: center;'>
-                ver 1.4.4<br/><font size="2">build 01032024.1458</font>
+                ver 1.4.4<br/><font size="2">build 01032024.1504</font>
                 </p>
             """, unsafe_allow_html=True
                )
