@@ -36,7 +36,7 @@ if st.button("Analiz Et"):
                         mail_gonder_fuar(ogr_ad, ogr_mail)
                         st.success("Tamamlandı!")
                     else:
-                        mail_gonder(ogr_ad, ogr_mail)
+                        mail_gonder_yetkili(ogr_ad)
                         st.success("Tamamlandı!")
                 except Exception as e:
                     if "Username and Password not" in str(e):
