@@ -27,7 +27,7 @@ def get_sheet():
     res = rs.get(url=sheet_csv)
     open('google.csv', 'wb').write(res.content)
     content = pd.read_csv('google.csv', header=None)
-    content[8] = content[8].lower()
+    content[8] = content[8].apply(lambda x: x.lower())
     #rows = run_query(f'SELECT * FROM "{sheet_url}"')
     return content
 
