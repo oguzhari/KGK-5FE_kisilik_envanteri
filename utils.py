@@ -1082,7 +1082,7 @@ def head():
 def versiyon():
     st.caption("""
                 <p style='text-align: center;'>
-                ver 1.4.4<br/><font size="2">build 01032024.1504</font>
+                ver 1.4.4<br/><font size="2">build 05032024.1421</font>
                 </p>
             """, unsafe_allow_html=True
                )
