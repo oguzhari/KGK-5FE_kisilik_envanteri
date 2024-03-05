@@ -16,19 +16,12 @@ import random as rd
 conn = connect()
 
 
-def run_query(query):
-    rows = conn.execute(query, headers=1)
-    rows = rows.fetchall()
-    return rows
-
-
 def get_sheet():
     sheet_csv = st.secrets["public_sheet_csv"]
     res = rs.get(url=sheet_csv)
     open('google.csv', 'wb').write(res.content)
     content = pd.read_csv('google.csv', header=None)
     content[8] = content[8].apply(lambda x: x.lower())
-    #rows = run_query(f'SELECT * FROM "{sheet_url}"')
     return content
 
 
