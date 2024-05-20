@@ -28,7 +28,7 @@ Mail adreslerini virgülle ayırarak birden fazla adres girebilirsiniz.
 
 adres1@sakarya.edu.tr, adres2@sakarya.edu.tr
 
-Tek mail adresi girilmesi halinde sadece bir danışman mail gönderilecektir.
+Tek mail adresi girilmesi halinde sadece bir danışmana mail gönderilecektir.
 
 adres1@sakarya.edu.tr
 """
