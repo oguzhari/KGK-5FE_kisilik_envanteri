@@ -19,15 +19,18 @@ ogrenci_numarasi = st.text_input(
     "Danışanın Öğrenci Numarası", "b161306350", key="ogrenci_numarasi"
 )
 mail_adresleri = st.text_input(
-    "Mail Adresleri", "kariyer@sakarya.edu.tr", key="mail_adresleri"
+    "Analizi Talep Edenin Mail Adresi", "kariyer@sakarya.edu.tr", key="mail_adresleri"
 )
 info = """
 Mail adreslerini virgülle ayırarak birden fazla adres girebilirsiniz.
+
 Örneğin: 
 
-adres1@example.com, adres2@example.com
+adres1@sakarya.edu.tr, adres2@sakarya.edu.tr
 
-Tek mail adresi girilmesi halinde sadece bir danışana mail gönderilecektir.
+Tek mail adresi girilmesi halinde sadece bir danışman mail gönderilecektir.
+
+adres1@sakarya.edu.tr
 """
 
 st.info(info)
