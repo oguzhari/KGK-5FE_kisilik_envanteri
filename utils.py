@@ -1747,9 +1747,9 @@ def danisman_analiz_olustur(ogrenci):
     hdr_cells = table.rows[0].cells
     hdr_cells[0].text = "Öğrenci Adı"
     hdr_cells[1].text = "Dışa Dönüklük"
-    hdr_cells[2].text = "Yumuşak Başlılık"
+    hdr_cells[2].text = "Uyumluluk"
     hdr_cells[3].text = "Özdenetim"
-    hdr_cells[4].text = "Duygusal Tutarlılık"
+    hdr_cells[4].text = "Nevrotiklik"
     hdr_cells[5].text = "Gelişime Açıklık"
     row = table.add_row().cells
     row[0].text = str(ogr_no)
@@ -1912,7 +1912,7 @@ def versiyon():
     st.caption(
         """
                 <p style='text-align: center;'>
-                ver 1.5.0<br/><font size="2">build 19052024.0039</font>
+                ver 1.5.0<br/><font size="2">build 14102024.1526</font>
                 </p>
             """,
         unsafe_allow_html=True,
