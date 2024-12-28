@@ -12,6 +12,10 @@ from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 import pandas as pd
 import random as rd
+import google.generativeai as genai
+
+# Google Cloud Console'dan aldığınız API anahtarınızı buraya girin
+genai.configure(api_key=st.secrets["api_key"])
 
 # Test
 conn = connect()
@@ -1759,6 +1763,31 @@ def danisman_analiz_olustur(ogrenci):
     row[4].text = d + "/10"
     row[5].text = e + "/10"
     table.style = "Light Shading Accent 4"
+
+    p = document.add_paragraph()
+    p = document.add_paragraph()
+    p.add_run("DanışmanAI'ın yorumu ✨").bold = True
+    p = document.add_paragraph()
+    prompt_text = f"""
+    Sen Sakarya Üniversitesi Kariyer Geliştirme Koordinatörlüğe bağlı DanışmanAI'sın. Senden beş faktör kişilik envanterinin sonuçlarına göre kişilere önerilerde bulunmanı istiyorum.
+
+    * Dışa Dönüklük: {a}/10
+    * Uyumluluk: {b}/10
+    * Özdenetim: {c}/10
+    * Nevrotiklik: {d}/10
+    * Gelişime Açıklık: {e}/10
+
+    Yukarıdaki özelliklere göre 3 adet film, kitap ve dizi öner. Liste halinde ver, cevabın bir Word dökümanına doğrudan eklenecek. Danışman olarak kişinin özellikleri hakkında ufak bir yorum yap, önerileri ve başka Yorum yapma.
+    """
+
+    model = genai.GenerativeModel("gemini-1.5-flash")
+
+    response = model.generate_content(prompt_text)
+
+    # add response as a paragraph
+    p = document.add_paragraph()
+    response_text = str(response.text).replace("*", "")
+    p.add_run(response_text).italic = True
 
     dosya_adi = (str(ogrenci[2].values[0]).title()).rstrip() + " Analiz.docx"
     document.save(dosya_adi)
