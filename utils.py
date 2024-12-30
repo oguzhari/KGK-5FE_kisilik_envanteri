@@ -13,6 +13,7 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 import pandas as pd
 import random as rd
 import google.generativeai as genai
+from docx2pdf import convert
 
 # Google Cloud Console'dan aldığınız API anahtarınızı buraya girin
 genai.configure(api_key=st.secrets["api_key"])
@@ -1764,10 +1765,10 @@ def danisman_analiz_olustur(ogrenci):
     row[5].text = e + "/10"
     table.style = "Light Shading Accent 4"
 
-    p = document.add_paragraph()
+    # add new page
+    p = document.add_page_break()
     p = document.add_paragraph()
     p.add_run("DanışmanAI'ın yorumu ✨").bold = True
-    p = document.add_paragraph()
     prompt_text = f"""
     Sen Sakarya Üniversitesi Kariyer Geliştirme Koordinatörlüğe bağlı DanışmanAI'sın. Senden beş faktör kişilik envanterinin sonuçlarına göre kişilere önerilerde bulunmanı istiyorum.
 
@@ -1777,7 +1778,8 @@ def danisman_analiz_olustur(ogrenci):
     * Nevrotiklik: {d}/10
     * Gelişime Açıklık: {e}/10
 
-    Yukarıdaki özelliklere göre 3 adet film, kitap ve dizi öner. Liste halinde ver, cevabın bir Word dökümanına doğrudan eklenecek. Danışman olarak kişinin özellikleri hakkında ufak bir yorum yap, önerileri ve başka Yorum yapma.
+    Yukarıdaki özelliklere göre 3 adet film, kitap ve dizi öner. Liste halinde ver, cevabın bir Word dökümanına doğrudan eklenecek. Danışman olarak kişinin özellikleri hakkında ufak bir yorum yap, önerileri ve başka Yorum yapma. Bahsederken "ben" değil "biz" olarak bahset.
+    
     """
 
     model = genai.GenerativeModel("gemini-1.5-flash")
@@ -1787,10 +1789,15 @@ def danisman_analiz_olustur(ogrenci):
     # add response as a paragraph
     p = document.add_paragraph()
     response_text = str(response.text).replace("*", "")
+    response_text = response_text.replace("\n\n", "\n")
+
     p.add_run(response_text).italic = True
 
     dosya_adi = (str(ogrenci[2].values[0]).title()).rstrip() + " Analiz.docx"
+
     document.save(dosya_adi)
+    convert(dosya_adi, (str(ogrenci[2].values[0]).title()).rstrip() + ".pdf")
+
 
 
 def mime_init(from_addr, recipients_addr, subject, body):
@@ -1898,7 +1905,7 @@ def mail_gonder_yetkili(ogr_adi, mail_adresi):
     body = "{} isimli öğrenciye ait kişilik envanterinin analizi ektedir.".format(
         ogr_adi
     )
-    file_path.append(ogr_adi.rstrip() + " Analiz.docx")
+    file_path.append(ogr_adi.rstrip() + ".pdf")
     send_email(user, password, from_addr, recipients_addr, subject, body, file_path)
 
 

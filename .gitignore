@@ -7,3 +7,5 @@ google.csv
 .idea/misc.xml
 __pycache__/
 /__pycache__
+/.idea
+*.pdf

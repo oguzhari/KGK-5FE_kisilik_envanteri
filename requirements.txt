@@ -3,3 +3,4 @@ python-docx
 gsheetsdb
 requests
 pyparsing
+google-generativeai
