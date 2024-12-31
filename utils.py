@@ -1826,7 +1826,7 @@ def mail_gonder(ogr_adi, ogr_maili):
     from_addr = "kariyer@sakarya.edu.tr"
     recipients_addr = ogr_maili
     subject = "5FE Kişilik Envanteri Analizi"
-    body = "Sayın {}, Kariyer Geliştirme Koordinatörlüğü'nde tamamlamış olduğunuz kişilik envanterinin analizi ektedir. DanışmanAI hakkındak görüşleriniz bizim için çok kıymetlidir. Lütfen anketimize katılın. https://forms.gle/xmevKHZVWfVpfE8V7".format(
+    body = "Sayın {}, Kariyer Geliştirme Koordinatörlüğü'nde tamamlamış olduğunuz kişilik envanterinin analizi ektedir. DanışmanAI hakkındaki görüşleriniz bizim için çok kıymetlidir. Lütfen anketimize katılın. https://forms.gle/xmevKHZVWfVpfE8V7".format(
         ogr_adi
     )
     file_path.append(ogr_adi + ".docx")
