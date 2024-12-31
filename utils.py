@@ -1389,7 +1389,7 @@ def ogrenci_analiz_olustur(ogrenci):
     paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     paragraph.add_run(envanter_analizi).italic = True
 
-    p = document.add_paragraph()
+    p = document.add_page_break()
     p = document.add_paragraph()
     p.add_run("Boyut Analizi").bold = True
     p = document.add_paragraph()
