@@ -16,6 +16,7 @@ st.dataframe(son_ogrenciler.tail(5), hide_index=True, width=700)
 ogrenci_numarasi = st.text_input(
     "Danışanın Öğrenci Numarası", "b161306350", key="ogrenci_numarasi"
 )
+ogrenci_numarasi = ogrenci_numarasi.lower()
 mail_adresleri = st.text_input(
     "Analizi Talep Edenin Mail Adresi", "kariyer@sakarya.edu.tr", key="mail_adresleri"
 )
@@ -40,9 +41,11 @@ st.warning(
     "\nFuar modu seçildiğinde, öğrenciye tam analiz gönderilir ancak danışmana mail gönderilmez."
 )
 
-st.error("Yapay Zeka alt yapısı kullandığımız için analiz süresi uzun sürebilir. "
-         "Lütfen hata almanız halinde ne yaptığınızı, hangi ayarlar ile yaptığınızı ve hata mesajını doğrudan "
-         "oari@sakarya.edu.tr adresine iletin.")
+st.error(
+    "Yapay Zeka alt yapısı kullandığımız için analiz süresi uzun sürebilir. "
+    "Lütfen hata almanız halinde ne yaptığınızı, hangi ayarlar ile yaptığınızı ve hata mesajını doğrudan "
+    "oari@sakarya.edu.tr adresine iletin."
+)
 if st.button("Analiz Et"):
     my_bar = st.progress(0)
     ogrenci = tumveriler.loc[tumveriler[8] == ogrenci_numarasi]
@@ -68,12 +71,16 @@ if st.button("Analiz Et"):
             st.success("Tamamlandı!")
         except Exception as e:
             if "Username and Password not" in str(e):
-                st.error("Mail gönderilmesi için bu linkten ayarlar 'AÇIK' hale getirilmeli.\nhttps://myaccount.google.com/lesssecureapps")
+                st.error(
+                    "Mail gönderilmesi için bu linkten ayarlar 'AÇIK' hale getirilmeli.\nhttps://myaccount.google.com/lesssecureapps"
+                )
             else:
                 st.error(f"Mail Gönderimi kısmında hata oluştu. Hata: {e}")
         my_bar.progress(100)
     except IndexError:
-        st.error("Öğrenci Numarasını bulunamadı, kontrol edip öğrenci numarasını tekrar girin!")
+        st.error(
+            "Öğrenci Numarasını bulunamadı, kontrol edip öğrenci numarasını tekrar girin!"
+        )
     except Exception as e:
         st.error(f"Tanım ve analiz kısmında bir hata oluştu. Hata: {e}")
 
