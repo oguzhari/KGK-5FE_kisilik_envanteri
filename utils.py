@@ -1680,7 +1680,8 @@ def danisman_analiz_olustur(ogrenci):
     Bir başkasının fiziksel görünüş, inanç, tutum ve değer sistemine yönelik hakaret içeren ögeler barındırmasın. 
     Herhangi bir cinsiyet, cinsel yönelim,siyasi-politik görüş, kültür, ırk, din, dil, etnik kökeni hedef alan doğrudan veya araçsal saldırganca bir tutumu içermesin.
     Danışman olarak kişinin özellikleri hakkında ufak bir yorum yap, önerileri ve başka Yorum yapma. Bahsederken "ben" değil "biz" olarak bahset.
-    
+    Cevabında "Bu öneriler, depresyon belirtileriyle mücadele eden bir bireyin ruh sağlığını destekleyici olmasına dikkat edilerek seçilmiştir." gibi ibareler sakın kullanma,
+    profesyonel görün. Böyle yazdığın zaman bu tarz telkinlerimizi açık ediyorsun, bu da profesyonellikten uzaklaşmana sebep olur.
     """
 
     model = genai.GenerativeModel("gemini-1.5-flash")
