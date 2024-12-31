@@ -1,4 +1,5 @@
 import streamlit as st
+from docx.shared import Inches
 from gsheetsdb import connect
 import os
 import smtplib
@@ -12,9 +13,24 @@ from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 import pandas as pd
 import random as rd
+import google.generativeai as genai
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Google Cloud Console'dan aldığınız API anahtarınızı buraya girin
+genai.configure(api_key=st.secrets["api_key"])
 
 # Test
 conn = connect()
+
+ogrenci_adi = ""
+envanter_analizi = ""
+danisman_ai = ""
+boyut_a_ = 0
+boyut_b_ = 0
+boyut_c_ = 0
+boyut_d_ = 0
+boyut_e_ = 0
 
 
 def get_sheet():
@@ -1349,135 +1365,13 @@ def tanımla_analiz_et(ogrenci):
 
 
 def ogrenci_analiz_olustur(ogrenci):
-    cevaplar = (
-        (
-            "1 --> " + str(ogrenci[19].values[0]),
-            "12 --> " + str(ogrenci[30].values[0]),
-            "23 --> " + str(ogrenci[41].values[0]),
-            "34 --> " + str(ogrenci[52].values[0]),
-        ),
-        (
-            "2 --> " + str(ogrenci[20].values[0]),
-            "13 --> " + str(ogrenci[31].values[0]),
-            "24 --> " + str(ogrenci[42].values[0]),
-            "35 --> " + str(ogrenci[53].values[0]),
-        ),
-        (
-            "3 --> " + str(ogrenci[21].values[0]),
-            "14 --> " + str(ogrenci[32].values[0]),
-            "25 --> " + str(ogrenci[43].values[0]),
-            "36 --> " + str(ogrenci[54].values[0]),
-        ),
-        (
-            "4 --> " + str(ogrenci[22].values[0]),
-            "15 --> " + str(ogrenci[33].values[0]),
-            "26 --> " + str(ogrenci[44].values[0]),
-            "37 --> " + str(ogrenci[55].values[0]),
-        ),
-        (
-            "5 --> " + str(ogrenci[23].values[0]),
-            "16 --> " + str(ogrenci[34].values[0]),
-            "27 --> " + str(ogrenci[45].values[0]),
-            "38 --> " + str(ogrenci[56].values[0]),
-        ),
-        (
-            "6 --> " + str(ogrenci[24].values[0]),
-            "17 --> " + str(ogrenci[35].values[0]),
-            "28 --> " + str(ogrenci[46].values[0]),
-            "39 --> " + str(ogrenci[57].values[0]),
-        ),
-        (
-            "7 --> " + str(ogrenci[25].values[0]),
-            "18 --> " + str(ogrenci[36].values[0]),
-            "29 --> " + str(ogrenci[47].values[0]),
-            "40 --> " + str(ogrenci[58].values[0]),
-        ),
-        (
-            "8 --> " + str(ogrenci[26].values[0]),
-            "19 --> " + str(ogrenci[37].values[0]),
-            "30 --> " + str(ogrenci[48].values[0]),
-            "41 --> " + str(ogrenci[59].values[0]),
-        ),
-        (
-            "9 --> " + str(ogrenci[27].values[0]),
-            "20 --> " + str(ogrenci[38].values[0]),
-            "31 --> " + str(ogrenci[49].values[0]),
-            "42 --> " + str(ogrenci[60].values[0]),
-        ),
-        (
-            "10 --> " + str(ogrenci[28].values[0]),
-            "21 --> " + str(ogrenci[39].values[0]),
-            "32 --> " + str(ogrenci[50].values[0]),
-            "43 --> " + str(ogrenci[61].values[0]),
-        ),
-        (
-            "11 --> " + str(ogrenci[29].values[0]),
-            "22 --> " + str(ogrenci[40].values[0]),
-            "33 --> " + str(ogrenci[51].values[0]),
-            "44 --> " + str(ogrenci[62].values[0]),
-        ),
-    )
+    global ogrenci_adi, envanter_analizi, boyut_a_, boyut_b_, boyut_c_, boyut_d_, boyut_e_
 
-    ogr_no = str(ogrenci[2].values[0]).title()
-    boyut_a = (
-        int(ogrenci[19].values[0])
-        + (11 - (int(ogrenci[24].values[0])))
-        + int(ogrenci[29].values[0])
-        + int(ogrenci[34].values[0])
-        + (11 - int(ogrenci[39].values[0]))
-        + int(ogrenci[44].values[0])
-        + (11 - int(ogrenci[49].values[0]))
-        + int(ogrenci[54].values[0])
-    ) / 8
-    boyut_b = (
-        (11 - int(ogrenci[20].values[0]))
-        + int(ogrenci[25].values[0])
-        + (11 - int(ogrenci[30].values[0]))
-        + int(ogrenci[35].values[0])
-        + int(ogrenci[40].values[0])
-        + (11 - int(ogrenci[45].values[0]))
-        + int(ogrenci[50].values[0])
-        + (11 - int(ogrenci[55].values[0]))
-        + int(ogrenci[60].values[0])
-    ) / 9
-    boyut_c = (
-        int(ogrenci[21].values[0])
-        + int(ogrenci[31].values[0])
-        + int(ogrenci[46].values[0])
-        + int(ogrenci[51].values[0])
-        + int(ogrenci[56].values[0])
-        + (11 - int(ogrenci[26].values[0]))
-        + (11 - int(ogrenci[36].values[0]))
-        + (11 - int(ogrenci[41].values[0]))
-        + (11 - int(ogrenci[61].values[0]))
-    ) / 9
-    boyut_d = (
-        int(ogrenci[22].values[0])
-        + int(ogrenci[32].values[0])
-        + int(ogrenci[37].values[0])
-        + int(ogrenci[47].values[0])
-        + int(ogrenci[57].values[0])
-        + (11 - int(ogrenci[27].values[0]))
-        + (11 - int(ogrenci[41].values[0]))
-        + (11 - int(ogrenci[52].values[0]))
-    ) / 8
-    boyut_e = (
-        int(ogrenci[23].values[0])
-        + int(ogrenci[28].values[0])
-        + int(ogrenci[33].values[0])
-        + int(ogrenci[38].values[0])
-        + int(ogrenci[43].values[0])
-        + int(ogrenci[48].values[0])
-        + int(ogrenci[58].values[0])
-        + int(ogrenci[62].values[0])
-        + (11 - int(ogrenci[53].values[0]))
-        + (11 - int(ogrenci[59].values[0]))
-    ) / 10
-    a = "{0:.2f}".format(boyut_a)
-    b = "{0:.2f}".format(boyut_b)
-    c = "{0:.2f}".format(boyut_c)
-    d = "{0:.2f}".format(boyut_d)
-    e = "{0:.2f}".format(boyut_e)
+    a = "{0:.2f}".format(float(boyut_a_))
+    b = "{0:.2f}".format(float(boyut_b_))
+    c = "{0:.2f}".format(float(boyut_c_))
+    d = "{0:.2f}".format(float(boyut_d_))
+    e = "{0:.2f}".format(float(boyut_e_))
 
     document = Document()
 
@@ -1490,28 +1384,38 @@ def ogrenci_analiz_olustur(ogrenci):
     document.add_heading(str(ogrenci[2].values[0]).title(), 0)
 
     p = document.add_paragraph()
-    p.add_run("Envanter Doldurulma Tarihi: ").bold = True
-    p.add_run(str(ogrenci[0].values[0])).italic = True
-
-    p = document.add_paragraph()
-    analiz, arada_kalanlar = tanımla_analiz_et(ogrenci)
     p.add_run("Envanter Analizi").bold = True
     paragraph = document.add_paragraph()
     paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-    analiz_uzunlugu = int(len(analiz.split()) * 0.4)
-    analiz = " ".join(analiz.split()[:analiz_uzunlugu]) + "..."
-    paragraph.add_run(analiz).italic = True
+    paragraph.add_run(envanter_analizi).italic = True
 
     p = document.add_paragraph()
-    p.add_run(
-        "Detaylı analiz için lütfen kariyer@sakarya.edu.tr adresiyle iletişime geçin."
-    ).bold = True
+    p = document.add_paragraph()
+    p.add_run("Boyut Analizi").bold = True
+    p = document.add_paragraph()
+    #make center
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    # add image
+    p.add_run().add_picture("pentagon_plot.png", width=Inches(3))
+
+    # add new page
+    p = document.add_page_break()
+    p = document.add_paragraph()
+    p.add_run("DanışmanAI'ın Yorumu").bold = True
+    p = document.add_paragraph()
+    p.add_run("Henüz geliştirilme sürecindedir. Bazı özellikler beklendiği gibi çalışmayabilir. Bir sorun olması halinde bizimle iletişime geçebilirsiniz.").bold = True
+    p.italic = True
+    paragraph = document.add_paragraph()
+    paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    paragraph.add_run(danisman_ai).italic = True
 
     dosya_adi = str(ogrenci[2].values[0]).title() + ".docx"
     document.save(dosya_adi)
 
 
 def danisman_analiz_olustur(ogrenci):
+    global ogrenci_adi, envanter_analizi, danisman_ai, boyut_a_, boyut_b_, boyut_c_, boyut_d_, boyut_e_
+
     cevaplar = (
         (
             "1 --> " + str(ogrenci[19].values[0]),
@@ -1704,6 +1608,7 @@ def danisman_analiz_olustur(ogrenci):
 
     p = document.add_paragraph()
     analiz, arada_kalanlar = tanımla_analiz_et(ogrenci)
+    envanter_analizi = analiz
     p.add_run("Envanter Analizi").bold = True
     paragraph = document.add_paragraph()
     paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
@@ -1742,26 +1647,86 @@ def danisman_analiz_olustur(ogrenci):
     p = document.add_paragraph()
     p = document.add_paragraph()
     p.add_run("Boyut Analizi").bold = True
-    table = document.add_table(rows=1, cols=6)
-    table.allow_autofit = True
-    hdr_cells = table.rows[0].cells
-    hdr_cells[0].text = "Öğrenci Adı"
-    hdr_cells[1].text = "Dışa Dönüklük"
-    hdr_cells[2].text = "Uyumluluk"
-    hdr_cells[3].text = "Özdenetim"
-    hdr_cells[4].text = "Nevrotiklik"
-    hdr_cells[5].text = "Gelişime Açıklık"
-    row = table.add_row().cells
-    row[0].text = str(ogr_no)
-    row[1].text = a + "/10"
-    row[2].text = b + "/10"
-    row[3].text = c + "/10"
-    row[4].text = d + "/10"
-    row[5].text = e + "/10"
-    table.style = "Light Shading Accent 4"
+    create_pentagon_plot(a, b, c, d, e)
+    p = document.add_paragraph()
+    #make center
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    # add image
+    p.add_run().add_picture("pentagon_plot.png", width=Inches(3))
+
+    boyut_a_, boyut_b_, boyut_c_, boyut_d_, boyut_e_ = a, b, c, d, e
+
+    # add new page
+    p = document.add_page_break()
+    p = document.add_paragraph()
+    p.add_run("DanışmanAI'ın Yorumu").bold = True
+    prompt_text = f"""
+    Sen Sakarya Üniversitesi Kariyer Geliştirme Koordinatörlüğe bağlı DanışmanAI'sın. 
+    Senden beş faktör kişilik envanterinin sonuçlarına göre kişilere önerilerde bulunmanı istiyorum.
+
+    * Dışa Dönüklük: {a}/10
+    * Uyumluluk: {b}/10
+    * Özdenetim: {c}/10
+    * Nevrotiklik: {d}/10
+    * Gelişime Açıklık: {e}/10
+
+    Yukarıdaki özelliklere göre 3 adet film, kitap ve dizi öner. Liste halinde ver, cevabın bir Word dökümanına doğrudan eklenecek.
+    Depresyonda olan bir birey için, kendine zarar verme, şiddet, saldırganlık gibi kötücül duygu, düşünce ve davranışlara örnek teşkil etmeyen; umut, psikolojik dayanıklılık, kişisel gelişim, empati ve prososyal davranışları öne çıkaran film, dizi ve kitap önerileri yap. 
+    Önerilerinin ruh sağlığını destekleyici olmasına, zorlayı ve tetikleyici içeriklerden arındırılmış olmasına özen göster. 
+    Ayrıca teşvik edici veya kötü örnek oluşturabilecek cinsellik temalarının bulunmamasına dikkat et. 
+    Danışman olarak kişinin özellikleri hakkında ufak bir yorum yap, önerileri ve başka Yorum yapma. Bahsederken "ben" değil "biz" olarak bahset.
+    
+    """
+
+    model = genai.GenerativeModel("gemini-1.5-flash")
+
+    response = model.generate_content(prompt_text)
+
+    # add response as a paragraph
+    p = document.add_paragraph()
+    response_text = str(response.text).replace("*", "")
+    response_text = response_text.replace("\n\n", "\n")
+
+    danisman_ai = response_text
+
+    p.add_run(response_text).italic = True
 
     dosya_adi = (str(ogrenci[2].values[0]).title()).rstrip() + " Analiz.docx"
+
     document.save(dosya_adi)
+
+
+def create_pentagon_plot(a, b, c, d, e):
+    print(float(a), float(b), float(c), float(d), float(e))
+    # Değerler
+    # Değerler
+    values = [float(a), float(b), float(c), float(d), float(e)]
+    labels = ["Dışa Dönüklük", "Uyumluluk", "Özdenetim", "Nevrotiklik", "Gelişime Açıklık"]
+
+    # Değerleri normalize et (0-10 aralığında)
+    values += values[:1]  # İlk değeri sona ekle, böylece şekil kapanır
+
+    # Açıları hesapla
+    angles = np.linspace(0, 2 * np.pi, len(labels), endpoint=False).tolist()
+    angles += angles[:1]  # İlk açıyı sona ekle, böylece şekil kapanır
+
+    # Grafik oluştur
+    fig, ax = plt.subplots(figsize=(7, 5), subplot_kw=dict(polar=True))
+
+    # Verileri çiz
+    ax.fill(angles, values, color='blue', alpha=0.25)
+    ax.plot(angles, values, color='blue', linewidth=2)
+
+    # Etiketleri ekle
+    ax.set_yticks([0, 2, 4, 6, 8, 10])
+    ax.set_yticklabels(['0', '2', '4', '6', '8', '10'])
+    ax.set_xticks(angles[:-1])
+    ax.set_xticklabels(labels)
+
+    # Padding ayarla
+    plt.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.1)
+    plt.savefig("pentagon_plot.png", bbox_inches='tight', dpi=500)
+
 
 
 def mime_init(from_addr, recipients_addr, subject, body):
@@ -1912,7 +1877,7 @@ def versiyon():
     st.caption(
         """
                 <p style='text-align: center;'>
-                ver 1.5.0<br/><font size="2">build 14102024.1526</font>
+                ver 2.0.0_beta<br/><font size="2">build 30122024.2216</font>
                 </p>
             """,
         unsafe_allow_html=True,

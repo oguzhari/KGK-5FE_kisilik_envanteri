@@ -6,3 +6,8 @@ google.csv
 .idea/5FE_kisilik_envanteri.iml
 .idea/misc.xml
 __pycache__/
+/__pycache__
+/.idea
+*.pdf
+pentagon_plot.png
+test.py
