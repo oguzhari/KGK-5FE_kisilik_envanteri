@@ -40,6 +40,7 @@ st.warning(
     "\nFuar modu seçildiğinde, öğrenciye tam analiz gönderilir ancak danışmana mail gönderilmez."
 )
 
+st.error("Yapay Zeka alt yapısı kullandığımız için analiz süresi uzun sürebilir. Lütfen hata almanız halinde ne yaptığınızı, hangi ayarlar ile yaptığınızı ve hata mesajını doğrudan oari@sakarya.edu.tr adresine iletin.")
 if st.button("Analiz Et"):
     my_bar = st.progress(0)
     ogrenci = tumveriler.loc[tumveriler[8] == ogrenci_numarasi]

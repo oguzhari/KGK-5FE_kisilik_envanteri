@@ -9,3 +9,5 @@ __pycache__/
 /__pycache__
 /.idea
 *.pdf
+pentagon_plot.png
+test.py

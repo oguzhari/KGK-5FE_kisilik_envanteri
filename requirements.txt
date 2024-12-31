@@ -4,3 +4,5 @@ gsheetsdb
 requests
 pyparsing
 google-generativeai
+matplotlib
+numpy
