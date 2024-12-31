@@ -1393,7 +1393,7 @@ def ogrenci_analiz_olustur(ogrenci):
     p = document.add_paragraph()
     p.add_run("Boyut Analizi").bold = True
     p = document.add_paragraph()
-    #make center
+    # make center
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     # add image
     p.add_run().add_picture("pentagon_plot.png", width=Inches(3))
@@ -1403,7 +1403,9 @@ def ogrenci_analiz_olustur(ogrenci):
     p = document.add_paragraph()
     p.add_run("DanışmanAI'ın Yorumu").bold = True
     p = document.add_paragraph()
-    p.add_run("Henüz geliştirilme sürecindedir. Bazı özellikler beklendiği gibi çalışmayabilir. Bir sorun olması halinde bizimle iletişime geçebilirsiniz.").bold = True
+    p.add_run(
+        "Henüz geliştirilme sürecindedir. Bazı özellikler beklendiği gibi çalışmayabilir. Bir sorun olması halinde bizimle iletişime geçebilirsiniz."
+    ).bold = True
     p.italic = True
     paragraph = document.add_paragraph()
     paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
@@ -1649,7 +1651,7 @@ def danisman_analiz_olustur(ogrenci):
     p.add_run("Boyut Analizi").bold = True
     create_pentagon_plot(a, b, c, d, e)
     p = document.add_paragraph()
-    #make center
+    # make center
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     # add image
     p.add_run().add_picture("pentagon_plot.png", width=Inches(3))
@@ -1671,9 +1673,12 @@ def danisman_analiz_olustur(ogrenci):
     * Gelişime Açıklık: {e}/10
 
     Yukarıdaki özelliklere göre 3 adet film, kitap ve dizi öner. Liste halinde ver, cevabın bir Word dökümanına doğrudan eklenecek.
-    Depresyonda olan bir birey için, kendine zarar verme, şiddet, saldırganlık gibi kötücül duygu, düşünce ve davranışlara örnek teşkil etmeyen; umut, psikolojik dayanıklılık, kişisel gelişim, empati ve prososyal davranışları öne çıkaran film, dizi ve kitap önerileri yap. 
+    Depresyonda olan bir birey için, kendine zarar verme, şiddet, saldırganlık gibi kötücül duygu, düşünce ve davranışlara örnek teşkil etmeyen; 
+    umut, psikolojik dayanıklılık, kişisel gelişim, empati ve prososyal davranışları öne çıkaran film, dizi ve kitap önerileri yap. 
     Önerilerinin ruh sağlığını destekleyici olmasına, zorlayı ve tetikleyici içeriklerden arındırılmış olmasına özen göster. 
-    Ayrıca teşvik edici veya kötü örnek oluşturabilecek cinsellik temalarının bulunmamasına dikkat et. 
+    Ayrıca teşvik edici veya kötü örnek oluşturabilecek suç, bağımlılık, cinsellik vb. temalarının bulunmamasına dikkat et. 
+    Bir başkasının fiziksel görünüş, inanç, tutum ve değer sistemine yönelik hakaret içeren ögeler barındırmasın. 
+    Herhangi bir cinsiyet, cinsel yönelim,siyasi-politik görüş, kültür, ırk, din, dil, etnik kökeni hedef alan doğrudan veya araçsal saldırganca bir tutumu içermesin.
     Danışman olarak kişinin özellikleri hakkında ufak bir yorum yap, önerileri ve başka Yorum yapma. Bahsederken "ben" değil "biz" olarak bahset.
     
     """
@@ -1701,7 +1706,13 @@ def create_pentagon_plot(a, b, c, d, e):
     # Değerler
     # Değerler
     values = [float(a), float(b), float(c), float(d), float(e)]
-    labels = ["Dışa Dönüklük", "Uyumluluk", "Özdenetim", "Nevrotiklik", "Gelişime Açıklık"]
+    labels = [
+        "Dışa Dönüklük",
+        "Uyumluluk",
+        "Özdenetim",
+        "Nevrotiklik",
+        "Gelişime Açıklık",
+    ]
 
     # Değerleri normalize et (0-10 aralığında)
     values += values[:1]  # İlk değeri sona ekle, böylece şekil kapanır
@@ -1714,19 +1725,18 @@ def create_pentagon_plot(a, b, c, d, e):
     fig, ax = plt.subplots(figsize=(7, 5), subplot_kw=dict(polar=True))
 
     # Verileri çiz
-    ax.fill(angles, values, color='blue', alpha=0.25)
-    ax.plot(angles, values, color='blue', linewidth=2)
+    ax.fill(angles, values, color="blue", alpha=0.25)
+    ax.plot(angles, values, color="blue", linewidth=2)
 
     # Etiketleri ekle
     ax.set_yticks([0, 2, 4, 6, 8, 10])
-    ax.set_yticklabels(['0', '2', '4', '6', '8', '10'])
+    ax.set_yticklabels(["0", "2", "4", "6", "8", "10"])
     ax.set_xticks(angles[:-1])
     ax.set_xticklabels(labels)
 
     # Padding ayarla
     plt.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.1)
-    plt.savefig("pentagon_plot.png", bbox_inches='tight', dpi=500)
-
+    plt.savefig("pentagon_plot.png", bbox_inches="tight", dpi=500)
 
 
 def mime_init(from_addr, recipients_addr, subject, body):
@@ -1816,7 +1826,7 @@ def mail_gonder(ogr_adi, ogr_maili):
     from_addr = "kariyer@sakarya.edu.tr"
     recipients_addr = ogr_maili
     subject = "5FE Kişilik Envanteri Analizi"
-    body = "Sayın {}, Kariyer Geliştirme Koordinatörlüğü'nde tamamlamış olduğunuz kişilik envanterinin analizi ektedir.".format(
+    body = "Sayın {}, Kariyer Geliştirme Koordinatörlüğü'nde tamamlamış olduğunuz kişilik envanterinin analizi ektedir. DanışmanAI hakkındak görüşleriniz bizim için çok kıymetlidir. Lütfen anketimize katılın. https://forms.gle/xmevKHZVWfVpfE8V7".format(
         ogr_adi
     )
     file_path.append(ogr_adi + ".docx")
