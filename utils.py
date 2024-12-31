@@ -1685,6 +1685,7 @@ def danisman_analiz_olustur(ogrenci):
         •	Metin bir Word dosyasına eklenecek şekilde düzenlenmeli.
         •	Hiçbir açıklayıcı telkin cümlesi kullanılmamalı.
         •	Öneriler yalnızca bireyin ruh sağlığını desteklemek amacıyla seçilmeli.
+        •	Önerilerin sonuna herhangi bir not ekleme, önerilere "bunu öneriler sizin için hazırlanmıştır" gibi bir ibare eklenmemeli.
 
     Not: Danışman olarak kişinin özellikleri hakkında kısa bir yorum yapılabilir, ancak önerilerle ilgili başka bir yorumda bulunulmamalı.
     """
