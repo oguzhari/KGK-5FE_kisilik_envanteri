@@ -1672,18 +1672,21 @@ def danisman_analiz_olustur(ogrenci):
     * Nevrotiklik: {d}/10
     * Gelişime Açıklık: {e}/10
 
-    Yukarıdaki özelliklere göre 3 adet film, kitap ve dizi öner. Liste halinde ver, cevabın bir Word dökümanına doğrudan eklenecek.
-    Depresyonda olan bir birey için, kendine zarar verme, şiddet, saldırganlık gibi kötücül duygu, düşünce ve davranışlara örnek teşkil etmeyen; 
-    umut, psikolojik dayanıklılık, kişisel gelişim, empati ve prososyal davranışları öne çıkaran film, dizi ve kitap önerileri yap. 
-    Önerilerinin ruh sağlığını destekleyici olmasına, zorlayı ve tetikleyici içeriklerden arındırılmış olmasına özen göster. 
-    Ayrıca teşvik edici veya kötü örnek oluşturabilecek suç, bağımlılık, cinsellik vb. temalarının bulunmamasına dikkat et. 
-    Bir başkasının fiziksel görünüş, inanç, tutum ve değer sistemine yönelik hakaret içeren ögeler barındırmasın. 
-    Herhangi bir cinsiyet, cinsel yönelim,siyasi-politik görüş, kültür, ırk, din, dil, etnik kökeni hedef alan doğrudan veya araçsal saldırganca bir tutumu içermesin.
-    Danışman olarak kişinin özellikleri hakkında ufak bir yorum yap, önerileri ve başka Yorum yapma. Bahsederken "ben" değil "biz" olarak bahset.
-    Cevabında "Bu öneriler, depresyon belirtileriyle mücadele eden bir bireyin ruh sağlığını destekleyici olmasına dikkat edilerek seçilmiştir." gibi ibareler sakın kullanma,
-    profesyonel görün. Böyle yazdığın zaman bu tarz telkinlerimizi açık ediyorsun, bu da profesyonellikten uzaklaşmana sebep olur.
-    "Desteğe ihtiyacınız olduğunda lütfen profesyonel bir ruh sağlığı uzmanından yardım istemekten çekinmeyin" gibi laflar kullanma, zaten bizimle iletişimde olan öğrenciler dolduruyor.
-    Sadece istenenleri ver, fazlasına gerek yok.
+    •	Film, kitap ve dizi önerileri için talimatlar:
+        1.	Öneriler, kendine zarar verme, şiddet, saldırganlık gibi kötücül duygu, düşünce ve davranışlara örnek teşkil etmeyecek şekilde seçilmeli.
+        2.	Öne çıkarılması gereken temalar: umut, psikolojik dayanıklılık, kişisel gelişim, empati, prososyal davranışlar.
+        3.	Zorlayıcı ve tetikleyici içeriklerden arındırılmış olmalı.
+        4.	Suç, bağımlılık, cinsellik gibi temaları barındırmamalı.
+        5.	Fiziksel görünüş, inanç, tutum veya değer sistemine yönelik hakaret içeren ögeler içermemeli.
+        6.	Cinsiyet, cinsel yönelim, siyasi-politik görüş, kültür, ırk, din, dil, etnik kökeni hedef alan saldırgan içeriklerden kaçınılmalı.
+	•	Cevap formatı:
+        •	Öneriler liste halinde sunulmalı (3 film, 3 kitap, 3 dizi).
+        •	Önerilerin yanına kısa açıklamalar eklenebilir (isteğe bağlı).
+        •	Metin bir Word dosyasına eklenecek şekilde düzenlenmeli.
+        •	Hiçbir açıklayıcı telkin cümlesi kullanılmamalı.
+        •	Öneriler yalnızca bireyin ruh sağlığını desteklemek amacıyla seçilmeli.
+
+    Not: Danışman olarak kişinin özellikleri hakkında kısa bir yorum yapılabilir, ancak önerilerle ilgili başka bir yorumda bulunulmamalı.
     """
 
     model = genai.GenerativeModel("gemini-1.5-flash")
@@ -1890,7 +1893,7 @@ def versiyon():
     st.caption(
         """
                 <p style='text-align: center;'>
-                ver 2.0.0_beta<br/><font size="2">build 31122024.1551</font>
+                ver 2.0.0_beta<br/><font size="2">build 31122024.1600</font>
                 </p>
             """,
         unsafe_allow_html=True,
