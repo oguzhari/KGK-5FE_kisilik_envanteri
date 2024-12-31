@@ -1682,6 +1682,8 @@ def danisman_analiz_olustur(ogrenci):
     Danışman olarak kişinin özellikleri hakkında ufak bir yorum yap, önerileri ve başka Yorum yapma. Bahsederken "ben" değil "biz" olarak bahset.
     Cevabında "Bu öneriler, depresyon belirtileriyle mücadele eden bir bireyin ruh sağlığını destekleyici olmasına dikkat edilerek seçilmiştir." gibi ibareler sakın kullanma,
     profesyonel görün. Böyle yazdığın zaman bu tarz telkinlerimizi açık ediyorsun, bu da profesyonellikten uzaklaşmana sebep olur.
+    "Desteğe ihtiyacınız olduğunda lütfen profesyonel bir ruh sağlığı uzmanından yardım istemekten çekinmeyin" gibi laflar kullanma, zaten bizimle iletişimde olan öğrenciler dolduruyor.
+    Sadece istenenleri ver, fazlasına gerek yok.
     """
 
     model = genai.GenerativeModel("gemini-1.5-flash")
