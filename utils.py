@@ -1833,7 +1833,7 @@ def mail_gonder(ogr_adi, ogr_maili):
     from_addr = "kariyer@sakarya.edu.tr"
     recipients_addr = ogr_maili
     subject = "5FE Kişilik Envanteri Analizi"
-    body = "Sayın {}, Kariyer Geliştirme Koordinatörlüğü'nde tamamlamış olduğunuz kişilik envanterinin analizi ektedir. DanışmanAI hakkındaki görüşleriniz bizim için çok kıymetlidir. Lütfen anketimize katılın. https://forms.gle/xmevKHZVWfVpfE8V7 formu doldurduktan sonra çekiliş için hak kazanmış olacaksınız.".format(
+    body = "Sayın {}, Kariyer Geliştirme Koordinatörlüğü'nde tamamlamış olduğunuz kişilik envanterinin analizi ektedir. DanışmanAI hakkındaki görüşleriniz bizim için çok kıymetlidir. Lütfen anketimize katılın. https://forms.gle/xmevKHZVWfVpfE8V7 geri bildirim formunu doldurduktan sonra çekiliş için hak kazanmış olacaksınız.".format(
         ogr_adi
     )
     file_path.append(ogr_adi + ".docx")
@@ -1894,7 +1894,7 @@ def versiyon():
     st.caption(
         """
                 <p style='text-align: center;'>
-                ver 2.0.0_beta<br/><font size="2">build 01012025.2141</font>
+                ver 2.0.0_beta<br/><font size="2">build 01012025.2142</font>
                 </p>
             """,
         unsafe_allow_html=True,
