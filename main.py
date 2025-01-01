@@ -39,8 +39,8 @@ fuar_modu = st.checkbox("Öğrenciye tam kopya gönder (Fuar Modu)")
 sadece_ogrenci = st.checkbox("Sadece öğrenciye öğrenci kopyası gönder.")
 st.warning(
     "Bir kopyasını danışana gönder seçeneği seçildiğinde, danışanlara özel hazırlanmış özet bir versiyonu gönderir."
-    "\nFuar modu seçildiğinde, öğrenciye tam analiz gönderilir ancak danışmana mail gönderilmez."
-    "\nSadece öğrenciye öğrenci kopyası gönder seçeneği seçildiğinde, danışana mail gönderilmez."
+    "\n\nFuar modu seçildiğinde, öğrenciye tam analiz gönderilir ancak danışmana mail gönderilmez."
+    "\n\nSadece öğrenciye öğrenci kopyası gönder seçeneği seçildiğinde, danışana mail gönderilmez."
 )
 
 st.error(
