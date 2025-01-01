@@ -34,11 +34,13 @@ adres1@sakarya.edu.tr
 
 st.info(info)
 mail_listesi = [mail.strip() for mail in mail_adresleri.split(",")]
-kopya = st.checkbox("Bir kopyasını danışana gönder.")
-fuar_modu = st.checkbox("Fuar Modu")
+kopya = st.checkbox("Tam analizi hazırlarken, öğrenciye öğrenci kopyası gönder.")
+fuar_modu = st.checkbox("Öğrenciye tam kopya gönder (Fuar Modu)")
+sadece_ogrenci = st.checkbox("Sadece öğrenciye öğrenci kopyası gönder.")
 st.warning(
     "Bir kopyasını danışana gönder seçeneği seçildiğinde, danışanlara özel hazırlanmış özet bir versiyonu gönderir."
     "\nFuar modu seçildiğinde, öğrenciye tam analiz gönderilir ancak danışmana mail gönderilmez."
+    "\nSadece öğrenciye öğrenci kopyası gönder seçeneği seçildiğinde, danışana mail gönderilmez."
 )
 
 st.error(
@@ -65,6 +67,8 @@ if st.button("Analiz Et"):
                 mail_gonder(ogr_ad, ogr_mail)
             elif fuar_modu:
                 mail_gonder_fuar(ogr_ad, ogr_mail)
+            elif sadece_ogrenci:
+                mail_gonder(ogr_ad, ogr_mail)
             else:
                 for mail in mail_listesi:
                     mail_gonder_yetkili(ogr_ad, mail)
