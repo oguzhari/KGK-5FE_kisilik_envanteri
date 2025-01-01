@@ -39,6 +39,8 @@ def get_sheet():
     open("google.csv", "wb").write(res.content)
     content = pd.read_csv("google.csv", header=None)
     content[8] = content[8].apply(lambda x: x.lower())
+    # remove white spaces from content[8]
+    content[8] = content[8].str.strip()
     return content
 
 
@@ -1894,7 +1896,7 @@ def versiyon():
     st.caption(
         """
                 <p style='text-align: center;'>
-                ver 2.0.0_beta<br/><font size="2">build 01012025.2142</font>
+                ver 2.0.0_beta<br/><font size="2">build 01012025.2221</font>
                 </p>
             """,
         unsafe_allow_html=True,

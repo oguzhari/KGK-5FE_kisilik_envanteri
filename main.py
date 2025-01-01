@@ -16,7 +16,7 @@ st.dataframe(son_ogrenciler.tail(5), hide_index=True, width=700)
 ogrenci_numarasi = st.text_input(
     "Danışanın Öğrenci Numarası", "b161306350", key="ogrenci_numarasi"
 )
-ogrenci_numarasi = ogrenci_numarasi.lower()
+ogrenci_numarasi = ogrenci_numarasi.lower().strip()
 mail_adresleri = st.text_input(
     "Analizi Talep Edenin Mail Adresi", "kariyer@sakarya.edu.tr", key="mail_adresleri"
 )
